@@ -1,4 +1,4 @@
-import {Page} from 'ionic/ionic'
+import {Page, Alert, NavController} from 'ionic/ionic'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Page({
@@ -7,14 +7,49 @@ import FirebaseSerivce from 'services/firebase.service'
 })
 
 export class Page1 {
-  constructor(firebaseService: FirebaseSerivce) {
+  constructor(
+    nav: NavController
+    firebaseService: FirebaseSerivce
+  ) {
+    this.nav = nav
     this.firebaseService = firebaseService
+
+    this.showLoginAlert()
+  }
+
+  showLoginAlert() {
+    const alert = Alert.create({
+      title: 'Log In',
+      inputs: [
+        {
+          name: 'emailAddress',
+          placeholder: 'Email Address'
+        },
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Log In',
+          handler: data => {
+            this.login(data.emailAddress, data.password)
+              .then(() => alert.dismiss())
+              .catch(() => alert.setMessage('Verify the email address and password are correct and try again.'))
+            return false
+          }
+        }
+      ]
+    })
+
+    this.nav.present(alert)
   }
 
   login(email, password) {
-    this.firebaseService
+    return this.firebaseService
       .login({email, password})
       .then(authData => console.log(authData))
-      .catch(error => console.error(error))
   }
 }

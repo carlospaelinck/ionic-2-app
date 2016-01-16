@@ -61366,24 +61366,54 @@
 	var ionic_1 = __webpack_require__(6);
 	var firebase_service_1 = __webpack_require__(355);
 	var Page1 = (function () {
-	    function Page1(firebaseService) {
+	    function Page1(nav, firebaseService) {
+	        this.nav = nav;
 	        this.firebaseService = firebaseService;
+	        this.showLoginAlert();
 	    }
+	    Page1.prototype.showLoginAlert = function () {
+	        var _this = this;
+	        var alert = ionic_1.Alert.create({
+	            title: 'Log In',
+	            inputs: [
+	                {
+	                    name: 'emailAddress',
+	                    placeholder: 'Email Address'
+	                },
+	                {
+	                    name: 'password',
+	                    placeholder: 'Password',
+	                    type: 'password'
+	                }
+	            ],
+	            buttons: [
+	                {
+	                    text: 'Log In',
+	                    handler: function (data) {
+	                        _this.login(data.emailAddress, data.password)
+	                            .then(function () { return alert.dismiss(); })
+	                            .catch(function () { return alert.setMessage('Verify the email address and password are correct and try again.'); });
+	                        return false;
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(alert);
+	    };
 	    Page1.prototype.login = function (email, password) {
-	        this.firebaseService
+	        return this.firebaseService
 	            .login({ email: email, password: password })
-	            .then(function (authData) { return console.log(authData); })
-	            .catch(function (error) { return console.error(error); });
+	            .then(function (authData) { return console.log(authData); });
 	    };
 	    Page1 = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/page1/page1.html',
 	            providers: [firebase_service_1.default]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _b) || Object])
 	    ], Page1);
 	    return Page1;
-	    var _a;
+	    var _a, _b;
 	})();
 	exports.Page1 = Page1;
 
