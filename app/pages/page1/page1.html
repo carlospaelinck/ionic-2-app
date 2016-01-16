@@ -2,14 +2,18 @@
   <ion-title>Tab 1</ion-title>
 </ion-navbar>
 
-<ion-content padding class="page1">
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>www/app/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="page1">
+  <ion-list>
+    <ion-input>
+      <input #emailAddress type="text" placeholder="Email Address">
+    </ion-input>
+    <ion-input>
+      <input #password type="password" placeholder="Password">
+    </ion-input>
+    <button
+      (click)="login(emailAddress.value, password.value)"
+      full>
+      Log In
+    </button>
+  </ion-list>
 </ion-content>

@@ -39,9 +39,14 @@ module.exports = {
     ]
   },
   resolve: {
+    root: [
+      path.join(__dirname, 'node_modules'),
+      path.join(__dirname, 'app')
+    ],
     alias: {
       'ionic': 'ionic-framework',
-      'web-animations.min': path.normalize('ionic-framework/js/web-animations.min')
+      'web-animations.min': path.normalize('ionic-framework/js/web-animations.min'),
+      'services' : 'services'
     },
     extensions: ['', '.js']
   }
