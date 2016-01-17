@@ -61330,9 +61330,9 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var feed_view_1 = __webpack_require__(360);
-	var me_view_1 = __webpack_require__(361);
-	var people_view_1 = __webpack_require__(362);
+	var feed_view_1 = __webpack_require__(354);
+	var me_view_1 = __webpack_require__(358);
+	var people_view_1 = __webpack_require__(359);
 	var TabsPage = (function () {
 	    function TabsPage() {
 	        this.tabFeedView = feed_view_1.FeedView;
@@ -61351,7 +61351,80 @@
 
 
 /***/ },
-/* 354 */,
+/* 354 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var firebase_service_1 = __webpack_require__(355);
+	var FeedView = (function () {
+	    function FeedView(nav, firebaseService) {
+	        this.nav = nav;
+	        this.firebaseService = firebaseService;
+	        if (!this.firebaseService.deviceContainsUserAuthToken()) {
+	            this.showLoginAlert();
+	        }
+	        else {
+	            this.firebaseService.refreshAuth()
+	                .then(function (user) { return console.log(user); });
+	        }
+	    }
+	    FeedView.prototype.showLoginAlert = function () {
+	        var _this = this;
+	        var alert = ionic_1.Alert.create({
+	            title: 'Log In',
+	            inputs: [
+	                {
+	                    name: 'emailAddress',
+	                    placeholder: 'Email Address'
+	                },
+	                {
+	                    name: 'password',
+	                    placeholder: 'Password',
+	                    type: 'password'
+	                }
+	            ],
+	            buttons: [
+	                {
+	                    text: 'Log In',
+	                    handler: function (data) {
+	                        _this.login(data.emailAddress, data.password)
+	                            .then(function () { return alert.dismiss(); })
+	                            .catch(function () { return alert.setMessage('Verify the email address and password are correct and try again.'); });
+	                        return false;
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(alert);
+	    };
+	    FeedView.prototype.login = function (email, password) {
+	        return this.firebaseService
+	            .login({ email: email, password: password })
+	            .then(function (user) { return console.log(user); });
+	    };
+	    FeedView = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/feed/feed.html',
+	            providers: [firebase_service_1.default]
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _b) || Object])
+	    ], FeedView);
+	    return FeedView;
+	    var _a, _b;
+	})();
+	exports.FeedView = FeedView;
+
+
+/***/ },
 /* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -61365,8 +61438,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(8);
-	var user_model_1 = __webpack_require__(359);
-	var Firebase = __webpack_require__(356);
+	var user_model_1 = __webpack_require__(356);
+	var Firebase = __webpack_require__(357);
 	var FirebaseService = (function () {
 	    function FirebaseService() {
 	        this.rootRef = new Firebase('https://carlosionicapp.firebaseio.com');
@@ -61412,10 +61485,20 @@
 	    FirebaseService.prototype.createUserFromAuthData = function (userUid) {
 	        var _this = this;
 	        return new Promise(function (resolve, reject) {
-	            _this.rootRef.child('users').child(userUid).once('value', function (response) {
-	                var authenticatedUser = new user_model_1.default(response.val());
+	            _this.rootRef.child('users').child(userUid).once('value', function (snapshot) {
+	                var authenticatedUser = new user_model_1.default(userUid, snapshot.val());
 	                _this.user = authenticatedUser;
 	                resolve(authenticatedUser);
+	            });
+	        });
+	    };
+	    FirebaseService.prototype.allUsers = function () {
+	        var _this = this;
+	        return new Promise(function (resolve, reject) {
+	            _this.rootRef.child('users').once('value', function (snapshot) {
+	                var data = snapshot.val();
+	                var users = Object.keys(data).map(function (id) { return new user_model_1.default(id, data[id]); });
+	                resolve(users);
 	            });
 	        });
 	    };
@@ -61431,6 +61514,26 @@
 
 /***/ },
 /* 356 */
+/***/ function(module, exports) {
+
+	var User = (function () {
+	    function User(uid, json) {
+	        this.uid = uid || '';
+	        this.name = json.name || '';
+	        this.emailAddress = json.emailAddress || '';
+	    }
+	    User.prototype.avatarUrl = function (size) {
+	        if (size === void 0) { size = 100; }
+	        return "http://api.adorable.io/avatars/" + size + "/" + this.emailAddress + ".png";
+	    };
+	    return User;
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = User;
+
+
+/***/ },
+/* 357 */
 /***/ function(module, exports) {
 
 	/*! @license Firebase v2.3.2
@@ -61704,98 +61807,7 @@
 
 
 /***/ },
-/* 357 */,
-/* 358 */,
-/* 359 */
-/***/ function(module, exports) {
-
-	var User = (function () {
-	    function User(json) {
-	        this.name = json.name || '';
-	        this.emailAddress = json.emailAddress || '';
-	    }
-	    return User;
-	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = User;
-
-
-/***/ },
-/* 360 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var firebase_service_1 = __webpack_require__(355);
-	var FeedView = (function () {
-	    function FeedView(nav, firebaseService) {
-	        this.nav = nav;
-	        this.firebaseService = firebaseService;
-	        if (!this.firebaseService.deviceContainsUserAuthToken()) {
-	            this.showLoginAlert();
-	        }
-	        else {
-	            this.firebaseService.refreshAuth()
-	                .then(function (user) { return console.log(user); });
-	        }
-	    }
-	    FeedView.prototype.showLoginAlert = function () {
-	        var _this = this;
-	        var alert = ionic_1.Alert.create({
-	            title: 'Log In',
-	            inputs: [
-	                {
-	                    name: 'emailAddress',
-	                    placeholder: 'Email Address'
-	                },
-	                {
-	                    name: 'password',
-	                    placeholder: 'Password',
-	                    type: 'password'
-	                }
-	            ],
-	            buttons: [
-	                {
-	                    text: 'Log In',
-	                    handler: function (data) {
-	                        _this.login(data.emailAddress, data.password)
-	                            .then(function () { return alert.dismiss(); })
-	                            .catch(function () { return alert.setMessage('Verify the email address and password are correct and try again.'); });
-	                        return false;
-	                    }
-	                }
-	            ]
-	        });
-	        this.nav.present(alert);
-	    };
-	    FeedView.prototype.login = function (email, password) {
-	        return this.firebaseService
-	            .login({ email: email, password: password })
-	            .then(function (user) { return console.log(user); });
-	    };
-	    FeedView = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/feed/feed.html',
-	            providers: [firebase_service_1.default]
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _b) || Object])
-	    ], FeedView);
-	    return FeedView;
-	    var _a, _b;
-	})();
-	exports.FeedView = FeedView;
-
-
-/***/ },
-/* 361 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61826,7 +61838,7 @@
 
 
 /***/ },
-/* 362 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61839,16 +61851,23 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var firebase_service_1 = __webpack_require__(355);
 	var PeopleView = (function () {
-	    function PeopleView() {
+	    function PeopleView(firebaseService) {
+	        var _this = this;
+	        this.firebaseService = firebaseService;
+	        this.firebaseService.allUsers()
+	            .then(function (users) { return _this.users = users; });
 	    }
 	    PeopleView = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/people/people.html'
+	            templateUrl: 'build/pages/people/people.html',
+	            providers: [firebase_service_1.default]
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _a) || Object])
 	    ], PeopleView);
 	    return PeopleView;
+	    var _a;
 	})();
 	exports.PeopleView = PeopleView;
 

@@ -55,10 +55,20 @@ export default class FirebaseService {
 
   createUserFromAuthData(userUid) {
     return new Promise((resolve, reject) => {
-      this.rootRef.child('users').child(userUid).once('value', response => {
-        const authenticatedUser = new User(response.val())
+      this.rootRef.child('users').child(userUid).once('value', snapshot => {
+        const authenticatedUser = new User(userUid, snapshot.val())
         this.user = authenticatedUser
         resolve(authenticatedUser)
+      })
+    })
+  }
+
+  allUsers() {
+    return new Promise((resolve, reject) => {
+      this.rootRef.child('users').once('value', snapshot => {
+        const data = snapshot.val()
+        const users = Object.keys(data).map(id => new User(id, data[id]))
+        resolve(users)
       })
     })
   }
