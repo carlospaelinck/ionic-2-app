@@ -61369,7 +61369,13 @@
 	    function Page1(nav, firebaseService) {
 	        this.nav = nav;
 	        this.firebaseService = firebaseService;
-	        this.showLoginAlert();
+	        if (!this.firebaseService.deviceContainsUserAuthToken()) {
+	            this.showLoginAlert();
+	        }
+	        else {
+	            this.firebaseService.refreshAuth()
+	                .then(function (user) { return console.log(user); });
+	        }
 	    }
 	    Page1.prototype.showLoginAlert = function () {
 	        var _this = this;
@@ -61403,7 +61409,7 @@
 	    Page1.prototype.login = function (email, password) {
 	        return this.firebaseService
 	            .login({ email: email, password: password })
-	            .then(function (authData) { return console.log(authData); });
+	            .then(function (user) { return console.log(user); });
 	    };
 	    Page1 = __decorate([
 	        ionic_1.Page({
@@ -61432,11 +61438,11 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(8);
+	var user_model_1 = __webpack_require__(359);
 	var Firebase = __webpack_require__(356);
 	var FirebaseService = (function () {
 	    function FirebaseService() {
 	        this.rootRef = new Firebase('https://carlosionicapp.firebaseio.com');
-	        console.log('creating Firebase service');
 	    }
 	    FirebaseService.prototype.login = function (options) {
 	        var _this = this;
@@ -61451,8 +61457,38 @@
 	                    reject(error);
 	                }
 	                else {
-	                    resolve(authData);
+	                    localStorage.userAuthToken = authData.token;
+	                    localStorage.userUid = authData.uid;
+	                    _this.createUserFromAuthData(authData.uid)
+	                        .then(function (user) { return resolve(user); });
 	                }
+	            });
+	        });
+	    };
+	    FirebaseService.prototype.deviceContainsUserAuthToken = function () {
+	        return localStorage.userAuthToken;
+	    };
+	    FirebaseService.prototype.refreshAuth = function () {
+	        var _this = this;
+	        return new Promise(function (resolve, reject) {
+	            var userAuthToken = localStorage.userAuthToken;
+	            _this.rootRef.authWithCustomToken(userAuthToken, function (error, authData) {
+	                if (!error) {
+	                    localStorage.userAuthToken = authData.token;
+	                    localStorage.userUid = authData.uid;
+	                    _this.createUserFromAuthData(authData.uid)
+	                        .then(function (user) { return resolve(user); });
+	                }
+	            });
+	        });
+	    };
+	    FirebaseService.prototype.createUserFromAuthData = function (userUid) {
+	        var _this = this;
+	        return new Promise(function (resolve, reject) {
+	            _this.rootRef.child('users').child(userUid).once('value', function (response) {
+	                var authenticatedUser = new user_model_1.default(response.val());
+	                _this.user = authenticatedUser;
+	                resolve(authenticatedUser);
 	            });
 	        });
 	    };
@@ -61754,16 +61790,19 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
+	var firebase_service_1 = __webpack_require__(355);
 	var Page2 = (function () {
-	    function Page2() {
+	    function Page2(firebaseService) {
 	    }
 	    Page2 = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/page2/page2.html',
+	            providers: [firebase_service_1.default]
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _a) || Object])
 	    ], Page2);
 	    return Page2;
+	    var _a;
 	})();
 	exports.Page2 = Page2;
 
@@ -61794,6 +61833,21 @@
 	    return Page3;
 	})();
 	exports.Page3 = Page3;
+
+
+/***/ },
+/* 359 */
+/***/ function(module, exports) {
+
+	var User = (function () {
+	    function User(json) {
+	        this.name = json.name || '';
+	        this.emailAddress = json.emailAddress || '';
+	    }
+	    return User;
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = User;
 
 
 /***/ }

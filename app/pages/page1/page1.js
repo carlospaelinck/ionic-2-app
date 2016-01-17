@@ -14,7 +14,13 @@ export class Page1 {
     this.nav = nav
     this.firebaseService = firebaseService
 
-    this.showLoginAlert()
+    if (!this.firebaseService.deviceContainsUserAuthToken()) {
+      this.showLoginAlert()
+
+    } else {
+      this.firebaseService.refreshAuth()
+        .then(user => console.log(user))
+    }
   }
 
   showLoginAlert() {
@@ -50,6 +56,6 @@ export class Page1 {
   login(email, password) {
     return this.firebaseService
       .login({email, password})
-      .then(authData => console.log(authData))
+      .then(user => console.log(user))
   }
 }
