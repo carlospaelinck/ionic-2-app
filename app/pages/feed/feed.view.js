@@ -2,11 +2,11 @@ import {Page, Alert, NavController} from 'ionic/ionic'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Page({
-  templateUrl: 'build/pages/page1/page1.html',
+  templateUrl: 'build/pages/feed/feed.html',
   providers: [FirebaseSerivce]
 })
 
-export class Page1 {
+export class FeedView {
   constructor(
     nav: NavController
     firebaseService: FirebaseSerivce

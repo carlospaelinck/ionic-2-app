@@ -61330,14 +61330,14 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var page1_1 = __webpack_require__(354);
-	var page2_1 = __webpack_require__(357);
-	var page3_1 = __webpack_require__(358);
+	var feed_view_1 = __webpack_require__(360);
+	var me_view_1 = __webpack_require__(361);
+	var people_view_1 = __webpack_require__(362);
 	var TabsPage = (function () {
 	    function TabsPage() {
-	        this.tab1Root = page1_1.Page1;
-	        this.tab2Root = page2_1.Page2;
-	        this.tab3Root = page3_1.Page3;
+	        this.tabFeedView = feed_view_1.FeedView;
+	        this.tabMeView = me_view_1.MeView;
+	        this.tabPeopleView = people_view_1.PeopleView;
 	    }
 	    TabsPage = __decorate([
 	        ionic_1.Page({
@@ -61351,80 +61351,7 @@
 
 
 /***/ },
-/* 354 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var ionic_1 = __webpack_require__(6);
-	var firebase_service_1 = __webpack_require__(355);
-	var Page1 = (function () {
-	    function Page1(nav, firebaseService) {
-	        this.nav = nav;
-	        this.firebaseService = firebaseService;
-	        if (!this.firebaseService.deviceContainsUserAuthToken()) {
-	            this.showLoginAlert();
-	        }
-	        else {
-	            this.firebaseService.refreshAuth()
-	                .then(function (user) { return console.log(user); });
-	        }
-	    }
-	    Page1.prototype.showLoginAlert = function () {
-	        var _this = this;
-	        var alert = ionic_1.Alert.create({
-	            title: 'Log In',
-	            inputs: [
-	                {
-	                    name: 'emailAddress',
-	                    placeholder: 'Email Address'
-	                },
-	                {
-	                    name: 'password',
-	                    placeholder: 'Password',
-	                    type: 'password'
-	                }
-	            ],
-	            buttons: [
-	                {
-	                    text: 'Log In',
-	                    handler: function (data) {
-	                        _this.login(data.emailAddress, data.password)
-	                            .then(function () { return alert.dismiss(); })
-	                            .catch(function () { return alert.setMessage('Verify the email address and password are correct and try again.'); });
-	                        return false;
-	                    }
-	                }
-	            ]
-	        });
-	        this.nav.present(alert);
-	    };
-	    Page1.prototype.login = function (email, password) {
-	        return this.firebaseService
-	            .login({ email: email, password: password })
-	            .then(function (user) { return console.log(user); });
-	    };
-	    Page1 = __decorate([
-	        ionic_1.Page({
-	            templateUrl: 'build/pages/page1/page1.html',
-	            providers: [firebase_service_1.default]
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _b) || Object])
-	    ], Page1);
-	    return Page1;
-	    var _a, _b;
-	})();
-	exports.Page1 = Page1;
-
-
-/***/ },
+/* 354 */,
 /* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -61777,7 +61704,24 @@
 
 
 /***/ },
-/* 357 */
+/* 357 */,
+/* 358 */,
+/* 359 */
+/***/ function(module, exports) {
+
+	var User = (function () {
+	    function User(json) {
+	        this.name = json.name || '';
+	        this.emailAddress = json.emailAddress || '';
+	    }
+	    return User;
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = User;
+
+
+/***/ },
+/* 360 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61791,24 +61735,67 @@
 	};
 	var ionic_1 = __webpack_require__(6);
 	var firebase_service_1 = __webpack_require__(355);
-	var Page2 = (function () {
-	    function Page2(firebaseService) {
+	var FeedView = (function () {
+	    function FeedView(nav, firebaseService) {
+	        this.nav = nav;
+	        this.firebaseService = firebaseService;
+	        if (!this.firebaseService.deviceContainsUserAuthToken()) {
+	            this.showLoginAlert();
+	        }
+	        else {
+	            this.firebaseService.refreshAuth()
+	                .then(function (user) { return console.log(user); });
+	        }
 	    }
-	    Page2 = __decorate([
+	    FeedView.prototype.showLoginAlert = function () {
+	        var _this = this;
+	        var alert = ionic_1.Alert.create({
+	            title: 'Log In',
+	            inputs: [
+	                {
+	                    name: 'emailAddress',
+	                    placeholder: 'Email Address'
+	                },
+	                {
+	                    name: 'password',
+	                    placeholder: 'Password',
+	                    type: 'password'
+	                }
+	            ],
+	            buttons: [
+	                {
+	                    text: 'Log In',
+	                    handler: function (data) {
+	                        _this.login(data.emailAddress, data.password)
+	                            .then(function () { return alert.dismiss(); })
+	                            .catch(function () { return alert.setMessage('Verify the email address and password are correct and try again.'); });
+	                        return false;
+	                    }
+	                }
+	            ]
+	        });
+	        this.nav.present(alert);
+	    };
+	    FeedView.prototype.login = function (email, password) {
+	        return this.firebaseService
+	            .login({ email: email, password: password })
+	            .then(function (user) { return console.log(user); });
+	    };
+	    FeedView = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/page2/page2.html',
+	            templateUrl: 'build/pages/feed/feed.html',
 	            providers: [firebase_service_1.default]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _a) || Object])
-	    ], Page2);
-	    return Page2;
-	    var _a;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof ionic_1.NavController !== 'undefined' && ionic_1.NavController) === 'function' && _a) || Object, (typeof (_b = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _b) || Object])
+	    ], FeedView);
+	    return FeedView;
+	    var _a, _b;
 	})();
-	exports.Page2 = Page2;
+	exports.FeedView = FeedView;
 
 
 /***/ },
-/* 358 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -61821,33 +61808,49 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(6);
-	var Page3 = (function () {
-	    function Page3() {
+	var firebase_service_1 = __webpack_require__(355);
+	var MeView = (function () {
+	    function MeView(firebaseService) {
 	    }
-	    Page3 = __decorate([
+	    MeView = __decorate([
 	        ionic_1.Page({
-	            templateUrl: 'build/pages/page3/page3.html'
+	            templateUrl: 'build/pages/me/me.html',
+	            providers: [firebase_service_1.default]
 	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], Page3);
-	    return Page3;
+	        __metadata('design:paramtypes', [(typeof (_a = typeof firebase_service_1.default !== 'undefined' && firebase_service_1.default) === 'function' && _a) || Object])
+	    ], MeView);
+	    return MeView;
+	    var _a;
 	})();
-	exports.Page3 = Page3;
+	exports.MeView = MeView;
 
 
 /***/ },
-/* 359 */
-/***/ function(module, exports) {
+/* 362 */
+/***/ function(module, exports, __webpack_require__) {
 
-	var User = (function () {
-	    function User(json) {
-	        this.name = json.name || '';
-	        this.emailAddress = json.emailAddress || '';
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var ionic_1 = __webpack_require__(6);
+	var PeopleView = (function () {
+	    function PeopleView() {
 	    }
-	    return User;
+	    PeopleView = __decorate([
+	        ionic_1.Page({
+	            templateUrl: 'build/pages/people/people.html'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], PeopleView);
+	    return PeopleView;
 	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = User;
+	exports.PeopleView = PeopleView;
 
 
 /***/ }

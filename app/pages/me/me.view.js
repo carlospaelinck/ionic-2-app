@@ -2,11 +2,11 @@ import {Page} from 'ionic/ionic'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Page({
-  templateUrl: 'build/pages/page2/page2.html',
+  templateUrl: 'build/pages/me/me.html',
   providers: [FirebaseSerivce]
 })
 
-export class Page2 {
+export class MeView {
   constructor(firebaseService: FirebaseSerivce) {
   }
 }
