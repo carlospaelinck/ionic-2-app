@@ -12,6 +12,16 @@ export default class FirebaseService {
     this.rootRef = new Firebase('https://carlosionicapp.firebaseio.com')
   }
 
+  logout() {
+    return new Promise(resolve => {
+      this.rootRef.unauth()
+      this.user = null
+      localStorage.removeItem('userAuthToken')
+      localStorage.removeItem('userUid')
+      resolve()
+    })
+  }
+
   login(options) {
     return new Promise((resolve, reject) => {
       if (!options.email || !options.password) {
@@ -76,6 +86,22 @@ export default class FirebaseService {
     })
   }
 
+  createNewPost(options) {
+    return new Promise(resolve => {
+      const {user, content} = options
+      const postRef = this.rootRef.child('posts').push()
+
+      const post = {
+        userUid: user.uid,
+        userName: user.name,
+        content,
+        timestamp: new Date().getTime()
+      }
+
+      postRef.set(post, error => console.error(error))
+    })
+  }
+
   allPosts() {
     return new Promise((resolve, reject) => {
       this.rootRef.child('posts').on('value', snapshot => {
@@ -86,9 +112,17 @@ export default class FirebaseService {
     })
   }
 
-  // postsForUser(uid) {
-  //   return new Promise((resolve, reject) => {
-  //     this.rootRef.child('posts').child(uid).on
-  //   })
-  // }
+  postsForUser(uid) {
+    return new Promise((resolve, reject) => {
+      this.rootRef
+        .child('posts')
+        .orderByChild('userUid')
+        .equalTo(uid)
+        .on('value', snapshot => {
+          const data = snapshot.val() || {}
+          const posts = Object.keys(data).map(id => new Post(data[id]))
+          resolve(posts)
+        })
+    })
+  }
 }

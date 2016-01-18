@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 export default class Post {
   userUid: String
   userName: string
@@ -13,5 +15,10 @@ export default class Post {
 
   userAvatarUrl(size: number = 100): string {
     return `http://api.adorable.io/avatars/${size}/${this.userUid}.png`
+  }
+
+  formattedDate(): string {
+    const isToday = moment().isSame(this.date, 'day')
+    return moment(this.date).format(isToday ? 'hA' : 'MMM D')
   }
 }

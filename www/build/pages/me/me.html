@@ -3,8 +3,35 @@
   <ion-title>
     Me
   </ion-title>
+  <ion-buttons *ngIf="user" end>
+    <button (click)="showUserActionSheet()">
+      <ion-icon name='settings'></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
 <ion-content class="page2">
-
+  <ion-list *ngIf="!user">
+    <ion-input>
+      <input #emailAddress type="text" placeholder="Email Address">
+    </ion-input>
+    <ion-input>
+      <input #password type="password" placeholder="Password">
+    </ion-input>
+    <button
+      (click)="login(emailAddress.value, password.value)"
+      full>
+      Log In
+    </button>
+  </ion-list>
+  <ion-card *ngIf="user">
+    <ion-card-header>
+      Create New Post
+    </ion-card-header>
+    <textarea #postTextArea></textarea>
+    <button light clear
+      (click)="createPost(postTextArea.value)">
+      Post
+    </button>
+  </ion-card>
 </ion-content>
