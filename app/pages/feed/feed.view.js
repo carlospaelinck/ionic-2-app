@@ -28,6 +28,7 @@ export class FeedView {
           this.user = user
           this.downloadPosts()
         })
+        .catch(() => this.showLoginAlert())
     }
   }
 

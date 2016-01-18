@@ -49,6 +49,8 @@ export default class FirebaseService {
 
           this.createUserFromAuthData(authData.uid)
             .then(user => resolve(user))
+        } else {
+          reject()
         }
       })
     })
