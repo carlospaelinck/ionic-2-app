@@ -1,7 +1,6 @@
 import {App, Platform, Config} from 'ionic/ionic'
 import {TabsPage} from './pages/tabs/tabs'
-
-import FirebaseSerivce from './services/firebase.service'
+import FirebaseSerivce from 'services/firebase.service'
 
 @App({
   templateUrl: 'build/app.html',
@@ -12,7 +11,7 @@ import FirebaseSerivce from './services/firebase.service'
 })
 
 export class MyApp {
-  constructor(platform: Platform, firebaseService: FirebaseSerivce) {
+  constructor(platform: Platform) {
     this.root = TabsPage
 
     platform.ready().then(() => {

@@ -10,6 +10,6 @@ export default class User {
   }
 
   avatarUrl(size: number = 100): string {
-    return `http://api.adorable.io/avatars/${size}/${this.emailAddress}.png`
+    return `http://api.adorable.io/avatars/${size}/${this.uid}.png`
   }
 }

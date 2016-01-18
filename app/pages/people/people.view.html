@@ -13,6 +13,9 @@
       </ion-avatar>
       <h2>{{user.name}}</h2>
       <p>{{user.emailAddress}}</p>
+      <button [navPush]="[peopleDetailView, {user: user}]">
+        View
+      </button>
     </ion-item>
   </ion-list>
 </ion-content>

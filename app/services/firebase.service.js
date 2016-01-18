@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core'
 import User from 'models/user.model'
+import Post from 'models/post.model'
 
 const Firebase = require('firebase')
 
@@ -72,4 +73,20 @@ export default class FirebaseService {
       })
     })
   }
+
+  allPosts() {
+    return new Promise((resolve, reject) => {
+      this.rootRef.child('posts').on('value', snapshot => {
+        const data = snapshot.val()
+        const posts = Object.keys(data).map(id => new Post(data[id]))
+        resolve(posts)
+      })
+    })
+  }
+
+  // postsForUser(uid) {
+  //   return new Promise((resolve, reject) => {
+  //     this.rootRef.child('posts').child(uid).on
+  //   })
+  // }
 }

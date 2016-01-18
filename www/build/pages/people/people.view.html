@@ -1,0 +1,21 @@
+
+<ion-navbar *navbar>
+  <ion-title>
+    People
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="page3">
+  <ion-list>
+    <ion-item *ngFor="#user of users">
+      <ion-avatar item-left>
+        <img src="{{user.avatarUrl(72)}}">
+      </ion-avatar>
+      <h2>{{user.name}}</h2>
+      <p>{{user.emailAddress}}</p>
+      <button [navPush]="[peopleDetailView, {user: user}]">
+        View
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

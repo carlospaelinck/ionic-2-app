@@ -1,16 +1,21 @@
 import {Page, Alert, NavController} from 'ionic/ionic'
+import User from 'models/user.model'
+import Post from 'models/post.model'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Page({
-  templateUrl: 'build/pages/feed/feed.html',
-  providers: [FirebaseSerivce]
+  templateUrl: 'build/pages/feed/feed.html'
 })
 
 export class FeedView {
+  user: User
+  posts: Post[]
+
   constructor(
     nav: NavController
     firebaseService: FirebaseSerivce
   ) {
+    this.posts = []
     this.nav = nav
     this.firebaseService = firebaseService
 
@@ -19,8 +24,16 @@ export class FeedView {
 
     } else {
       this.firebaseService.refreshAuth()
-        .then(user => console.log(user))
+        .then(user => {
+          this.user = user
+          this.downloadPosts()
+        })
     }
+  }
+
+  downloadPosts() {
+    this.firebaseService.allPosts()
+      .then(posts => this.posts = posts)
   }
 
   showLoginAlert() {
@@ -56,6 +69,9 @@ export class FeedView {
   login(email, password) {
     return this.firebaseService
       .login({email, password})
-      .then(user => console.log(user))
+      .then(user => {
+        this.user = user
+        this.downloadPosts()
+      })
   }
 }
