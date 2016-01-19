@@ -1,10 +1,12 @@
 import {Page} from 'ionic/ionic'
 import User from 'models/user.model'
 import Post from 'models/post.model'
+import {PostComponent} from 'components/post.component'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Page({
-  templateUrl: 'build/pages/feed/feed.html'
+  templateUrl: 'build/pages/feed/feed.html',
+  directives: [PostComponent]
 })
 
 export class FeedView {

@@ -3,16 +3,5 @@
 </ion-navbar>
 
 <ion-content class="page1">
-  <ion-card *ngFor="#post of posts">
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="{{post.userAvatarUrl(72)}}">
-      </ion-avatar>
-      <h2>{{post.userName}}</h2>
-      <h3>{{post.formattedDate()}}</h3>
-    </ion-item>
-    <ion-card-content>
-      {{post.content}}
-    </ion-card-content>
-  </ion-card>
+  <post-item *ngFor="#post of posts" [post]="post"></post-item>
 </ion-content>

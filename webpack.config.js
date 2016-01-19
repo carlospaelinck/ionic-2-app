@@ -47,7 +47,8 @@ module.exports = {
       'ionic': 'ionic-framework',
       'web-animations.min': path.normalize('ionic-framework/js/web-animations.min'),
       'services' : 'services',
-      'models' : 'models'
+      'models' : 'models',
+      'components' : 'components'
     },
     extensions: ['', '.js']
   }
