@@ -106,7 +106,10 @@ export default class FirebaseService {
     return new Promise((resolve, reject) => {
       this.rootRef.child('posts').on('value', snapshot => {
         const data = snapshot.val()
-        const posts = Object.keys(data).map(id => new Post(data[id]))
+        const posts = Object.keys(data)
+          .map(id => new Post(data[id]))
+          .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
+
         resolve(posts)
       })
     })
@@ -120,7 +123,10 @@ export default class FirebaseService {
         .equalTo(uid)
         .on('value', snapshot => {
           const data = snapshot.val() || {}
-          const posts = Object.keys(data).map(id => new Post(data[id]))
+          const posts = Object.keys(data)
+            .map(id => new Post(data[id]))
+            .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
+
           resolve(posts)
         })
     })
