@@ -24,14 +24,17 @@
       Log In
     </button>
   </ion-list>
-  <ion-card *ngIf="user">
-    <ion-card-header>
-      Create New Post
-    </ion-card-header>
-    <textarea #postTextArea></textarea>
-    <button light clear
-      (click)="createPost(postTextArea.value)">
-      Post
-    </button>
-  </ion-card>
+  <div *ngIf="user">
+    <ion-card>
+      <ion-card-header>
+        Create New Post
+      </ion-card-header>
+      <textarea #postTextArea></textarea>
+      <button light clear
+        (click)="createPost(postTextArea.value)">
+        Post
+      </button>
+    </ion-card>
+    <post-item *ngFor="#post of posts" [post]="post"></post-item>
+  </div>
 </ion-content>

@@ -1,35 +1,38 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic'
+import {PostComponent} from 'components/post.component'
+
 import FirebaseSerivce from 'services/firebase.service'
 import User from 'models/user.model'
+import Post from 'models/post.model'
 
 @Page({
-  templateUrl: 'build/pages/me/me.html'
+  templateUrl: 'build/pages/me/me.html',
+  directives: [PostComponent]
 })
 
 export class MeView {
   user: User
 
   constructor(
-    nav: NavController,
-    firebaseService: FirebaseSerivce
+    private nav: NavController,
+    private firebaseService: FirebaseSerivce
   ) {
-    this.nav = nav
-    this.user = null
-    this.firebaseService = firebaseService
     this.checkAuthenticationStatus()
   }
 
   checkAuthenticationStatus() {
-    if (!this.firebaseService.deviceContainsUserAuthToken()) {
-      // this.showLoginAlert()
-
-    } else {
+    if (this.firebaseService.deviceContainsUserAuthToken()) {
       this.firebaseService.refreshAuth()
         .then(user => {
           this.user = user
+          this.downloadPosts()
         })
-        .catch(() => {})
     }
+  }
+
+  downloadPosts() {
+    this.firebaseService.postsForUser(this.user.uid)
+      .then(posts => this.posts = posts)
   }
 
   showUserActionSheet() {
@@ -60,7 +63,10 @@ export class MeView {
   login(email, password) {
     return this.firebaseService
       .login({email, password})
-      .then(user => this.user = user)
+      .then(user => {
+        this.user = user
+        this.downloadPosts()
+      })
   }
 
   logout() {

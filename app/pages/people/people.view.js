@@ -8,11 +8,12 @@ import User from 'models/user.model'
 })
 
 export class PeopleView {
-  users: User[]
+  users: User[] = []
 
-  constructor(firebaseService: FirebaseSerivce) {
+  constructor(
+    private firebaseService: FirebaseSerivce
+  ) {
     this.peopleDetailView = PeopleDetailView
-    this.firebaseService = firebaseService
     this.downloadAllUsers()
   }
 

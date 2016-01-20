@@ -4,6 +4,6 @@
   </ion-title>
 </ion-navbar>
 
-<ion-content>
-
+<ion-content class="people-detail-view">
+  <post-item *ngFor="#post of posts" [post]="post"></post-item>
 </ion-content>

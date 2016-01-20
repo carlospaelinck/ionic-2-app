@@ -11,13 +11,11 @@ import FirebaseSerivce from 'services/firebase.service'
 
 export class FeedView {
   user: User
-  posts: Post[]
+  posts: Post[] = []
 
   constructor(
-    firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseSerivce
   ) {
-    this.posts = []
-    this.firebaseService = firebaseService
     this.downloadPosts()
   }
 
