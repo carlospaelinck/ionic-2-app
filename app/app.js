@@ -11,12 +11,14 @@ import FirebaseSerivce from 'services/firebase.service'
 })
 
 export class MyApp {
-  constructor(platform: Platform) {
+  constructor(
+    private firebaseService: FirebaseSerivce,
+    platform: Platform
+  ) {
     this.root = TabsPage
 
     platform.ready().then(() => {
-
-      // Do any necessary cordova or native calls here now that the platform is ready
+      this.firebaseService.checkAuthenticationStatus()
     })
   }
 }

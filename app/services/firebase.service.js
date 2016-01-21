@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/core'
+import {Subject, BehaviorSubject, Observable} from 'rxjs/Rx'
 import User from 'models/user.model'
 import Post from 'models/post.model'
 
@@ -6,20 +7,16 @@ const Firebase = require('firebase')
 
 @Injectable()
 export default class FirebaseService {
-  user: User
+  currentUser: Subject<User> = new BehaviorSubject<User>(null)
 
   constructor() {
     this.rootRef = new Firebase('https://carlosionicapp.firebaseio.com')
   }
 
   logout() {
-    return new Promise(resolve => {
-      this.rootRef.unauth()
-      this.user = null
-      localStorage.removeItem('userAuthToken')
-      localStorage.removeItem('userUid')
-      resolve()
-    })
+    this.rootRef.unauth()
+    localStorage.removeItem('userAuthToken')
+    this.currentUser.next(null)
   }
 
   login(options) {
@@ -35,10 +32,8 @@ export default class FirebaseService {
           reject(error)
         } else {
           localStorage.userAuthToken = authData.token
-          localStorage.userUid = authData.uid
-
           this.createUserFromAuthData(authData.uid)
-            .then(user => resolve(user))
+            .then(user => this.currentUser.next(user))
         }
       })
     })
@@ -48,29 +43,31 @@ export default class FirebaseService {
     return localStorage.userAuthToken
   }
 
-  refreshAuth() {
-    return new Promise((resolve, reject) => {
-      const userAuthToken = localStorage.userAuthToken
+  checkAuthenticationStatus() {
+    const userAuthToken = localStorage.userAuthToken
 
+    if (!userAuthToken) {
+      localStorage.removeItem('userAuthToken')
+      this.currentUser.next(null)
+
+    } else {
       this.rootRef.authWithCustomToken(userAuthToken, (error, authData) => {
         if (!error) {
           localStorage.userAuthToken = authData.token
-          localStorage.userUid = authData.uid
-
           this.createUserFromAuthData(authData.uid)
-            .then(user => resolve(user))
+            .then(user => this.currentUser.next(user))
+
         } else {
-          reject()
+          this.currentUser.next(null)
         }
       })
-    })
+    }
   }
 
   createUserFromAuthData(userUid) {
     return new Promise((resolve, reject) => {
       this.rootRef.child('users').child(userUid).once('value', snapshot => {
         const authenticatedUser = new User(userUid, snapshot.val())
-        this.user = authenticatedUser
         resolve(authenticatedUser)
       })
     })

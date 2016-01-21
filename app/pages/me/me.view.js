@@ -12,22 +12,20 @@ import Post from 'models/post.model'
 
 export class MeView {
   user: User
+  posts: Post[] = []
 
   constructor(
     private nav: NavController,
     private firebaseService: FirebaseSerivce
   ) {
-    this.checkAuthenticationStatus()
-  }
-
-  checkAuthenticationStatus() {
-    if (this.firebaseService.deviceContainsUserAuthToken()) {
-      this.firebaseService.refreshAuth()
-        .then(user => {
-          this.user = user
-          this.downloadPosts()
-        })
-    }
+    this.firebaseService.currentUser.subscribe(user => {
+      this.user = user
+      if (user) {
+        this.downloadPosts()
+      } else {
+        this.posts = []
+      }
+    })
   }
 
   downloadPosts() {
@@ -70,8 +68,6 @@ export class MeView {
   }
 
   logout() {
-    this.firebaseService
-      .logout()
-      .then(() => this.user = null)
+    this.firebaseService.logout()
   }
 }

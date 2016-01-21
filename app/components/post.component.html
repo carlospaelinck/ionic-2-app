@@ -10,7 +10,7 @@
     {{post.content}}
     <div>
       {{post.favorites.length}}
-      <button clear (click)="toggleFavorite()">
+      <button [hidden]="!currentUserUid" clear (click)="toggleFavorite()">
         <ion-icon name="heart" is-active="false"></ion-icon>
       </button>
     </div>
