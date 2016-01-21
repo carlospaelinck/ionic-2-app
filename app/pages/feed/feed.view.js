@@ -10,13 +10,13 @@ import FirebaseSerivce from 'services/firebase.service'
 })
 
 export class FeedView {
-  user: User
   posts: Post[] = []
 
   constructor(
     private firebaseService: FirebaseSerivce
   ) {
     this.downloadPosts()
+    this.currentUserUid = localStorage.userUid
   }
 
   downloadPosts() {

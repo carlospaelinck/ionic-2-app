@@ -1,0 +1,18 @@
+<ion-card>
+  <ion-item class="item">
+    <ion-avatar item-left>
+      <img src="{{post.userAvatarUrl(72)}}">
+    </ion-avatar>
+    <h2>{{post.userName}}</h2>
+    <h3>{{post.formattedDate()}}</h3>
+  </ion-item>
+  <ion-card-content>
+    {{post.content}}
+    <div>
+      {{post.favorites.length}}
+      <button clear (click)="toggleFavorite()">
+        <ion-icon name="heart" is-active="false"></ion-icon>
+      </button>
+    </div>
+  </ion-card-content>
+</ion-card>

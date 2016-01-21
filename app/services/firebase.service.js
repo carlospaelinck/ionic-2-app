@@ -107,7 +107,7 @@ export default class FirebaseService {
       this.rootRef.child('posts').on('value', snapshot => {
         const data = snapshot.val()
         const posts = Object.keys(data)
-          .map(id => new Post(data[id]))
+          .map(id => new Post(id, data[id]))
           .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
 
         resolve(posts)
@@ -124,11 +124,28 @@ export default class FirebaseService {
         .on('value', snapshot => {
           const data = snapshot.val() || {}
           const posts = Object.keys(data)
-            .map(id => new Post(data[id]))
+            .map(id => new Post(id, data[id]))
             .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
 
           resolve(posts)
         })
+    })
+  }
+
+  toggleFavorite(userUid: string = '', post: Post) {
+    return new Promise(resolve => {
+      const isAFavorite = post.favorites.indexOf(userUid) !== -1
+      const favorites = isAFavorite ?
+        post.favorites.filter(uid => uid !== userUid) :
+        [...post.favorites, userUid]
+
+      resolve(favorites)
+
+      this.rootRef
+        .child('posts')
+        .child(post.id)
+        .child('favorites')
+        .set(favorites)
     })
   }
 }

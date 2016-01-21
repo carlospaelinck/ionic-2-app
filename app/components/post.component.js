@@ -1,34 +1,25 @@
-import {Component, View, Input} from 'angular2/core'
+import {Component, Input} from 'angular2/core'
+import {Item, Button, Icon} from 'ionic/ionic'
 import Post from 'models/post.model'
+import FirebaseSerivce from 'services/firebase.service'
 
 @Component({
-  selector: 'post-item'
-})
-
-@View({
-  template: `
-    <ion-card>
-      <ion-item class="item">
-        <ion-avatar item-left>
-          <img src="{{post.userAvatarUrl(72)}}">
-        </ion-avatar>
-        <div class="item-inner">
-          <ion-item-content cnt>
-            <h2>{{post.userName}}</h2>
-            <h3>{{post.formattedDate()}}</h3>
-          </ion-item-content>
-        </div>
-      </ion-item>
-      <ion-card-content>
-        {{post.content}}
-      </ion-card-content>
-    </ion-card>
-  `
+  selector: 'post-item',
+  templateUrl: 'build/components/post.component.html',
+  directives: [Item, Button, Icon]
 })
 
 export class PostComponent {
   @Input() post: Post
+  @Input() currentUserUid: string
 
-  constructor() {
+  constructor(
+    private firebaseService: FirebaseSerivce
+  ) {
+  }
+
+  toggleFavorite() {
+    this.firebaseService.toggleFavorite(this.currentUserUid, this.post)
+      .then(favorites => this.post.favorites = favorites)
   }
 }

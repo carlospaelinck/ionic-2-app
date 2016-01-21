@@ -3,5 +3,9 @@
 </ion-navbar>
 
 <ion-content class="feed-content-view">
-  <post-item *ngFor="#post of posts" [post]="post"></post-item>
+  <post-item
+    *ngFor="#post of posts"
+    [post]="post"
+    [currentUserUid]="currentUserUid">
+  </post-item>
 </ion-content>
