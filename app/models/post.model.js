@@ -21,6 +21,10 @@ export default class Post {
     return `http://api.adorable.io/avatars/${size}/${this.userUid}.png`
   }
 
+  isFavoritedByUser(uid: string): boolean {
+    return this.favorites.indexOf(uid) !== -1
+  }
+
   formattedDate(): string {
     const isToday = moment().isSame(this.date, 'day')
     return moment(this.date).format(isToday ? 'hA' : 'MMM D')
