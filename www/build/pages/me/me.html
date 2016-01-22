@@ -35,6 +35,10 @@
         Post
       </button>
     </ion-card>
-    <post-item *ngFor="#post of posts" [post]="post"></post-item>
+    <post-item
+      *ngFor="#post of posts"
+      [post]="post"
+      [user]="user">
+    </post-item>
   </div>
 </ion-content>

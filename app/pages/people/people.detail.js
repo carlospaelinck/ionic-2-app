@@ -11,15 +11,21 @@ import FirebaseSerivce from 'services/firebase.service'
 
 export class PeopleDetailView {
   user: User
+  pageUser: User
   posts: Post[] = []
 
   constructor(
     params: NavParams,
-    private firebaseSerivce: FirebaseSerivce
+    private firebaseService: FirebaseSerivce
   ) {
-    this.user = params.get('user')
+    this.pageUser = params.get('user')
 
-    firebaseSerivce.postsForUser(this.user.uid)
-      .then(posts => this.posts = posts)
+    this.firebaseService
+      .postsForUser(this.pageUser.uid)
+      .subscribe(posts => this.posts = posts)
+
+    this.firebaseService
+      .currentUser
+      .subscribe(user => this.user = user)
   }
 }

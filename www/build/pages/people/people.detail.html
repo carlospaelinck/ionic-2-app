@@ -1,9 +1,13 @@
 <ion-navbar *navbar>
   <ion-title>
-    {{user.name}}
+    {{pageUser.name}}
   </ion-title>
 </ion-navbar>
 
 <ion-content class="people-detail-view">
-  <post-item *ngFor="#post of posts" [post]="post"></post-item>
+  <post-item
+    *ngFor="#post of posts"
+    [post]="post"
+    [user]="user">
+  </post-item>
 </ion-content>

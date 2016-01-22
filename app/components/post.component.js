@@ -1,6 +1,7 @@
 import {Component, Input} from 'angular2/core'
 import {Item, Button, Icon} from 'ionic/ionic'
 import Post from 'models/post.model'
+import User from 'models/user.model'
 import FirebaseSerivce from 'services/firebase.service'
 
 @Component({
@@ -11,7 +12,7 @@ import FirebaseSerivce from 'services/firebase.service'
 
 export class PostComponent {
   @Input() post: Post
-  @Input() currentUserUid: string
+  @Input() user: User
 
   constructor(
     private firebaseService: FirebaseSerivce
@@ -19,7 +20,6 @@ export class PostComponent {
   }
 
   toggleFavorite() {
-    this.firebaseService.toggleFavorite(this.currentUserUid, this.post)
-      .then(favorites => this.post.favorites = favorites)
+    this.firebaseService.toggleFavorite(this.user.uid, this.post)
   }
 }

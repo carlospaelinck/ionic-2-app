@@ -17,12 +17,10 @@ export class FeedView {
     private firebaseService: FirebaseSerivce
   ) {
     this.downloadPosts()
-    this.currentUserUid = localStorage.userUid
-    this.firebaseService.currentUser.subscribe(user => this.user)
+    this.firebaseService.currentUser.subscribe(user => this.user = user)
   }
 
   downloadPosts() {
-    this.firebaseService.allPosts()
-      .then(posts => this.posts = posts)
+    this.firebaseService.allPosts().subscribe(posts => this.posts = posts)
   }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core'
-import {Subject, BehaviorSubject, Observable} from 'rxjs/Rx'
+import {Subject, BehaviorSubject} from 'rxjs/Rx'
 import User from 'models/user.model'
 import Post from 'models/post.model'
 
@@ -37,10 +37,6 @@ export default class FirebaseService {
         }
       })
     })
-  }
-
-  deviceContainsUserAuthToken() {
-    return localStorage.userAuthToken
   }
 
   checkAuthenticationStatus() {
@@ -84,65 +80,63 @@ export default class FirebaseService {
   }
 
   createNewPost(options) {
-    return new Promise(resolve => {
-      const {user, content} = options
-      const postRef = this.rootRef.child('posts').push()
+    const {user, content} = options
+    const postRef = this.rootRef.child('posts').push()
 
-      const post = {
-        userUid: user.uid,
-        userName: user.name,
-        content,
-        timestamp: new Date().getTime()
-      }
+    const post = {
+      userUid: user.uid,
+      userName: user.name,
+      content,
+      timestamp: new Date().getTime()
+    }
 
-      postRef.set(post, error => console.error(error))
-    })
+    postRef.set(post, error => console.error(error))
   }
 
-  allPosts() {
-    return new Promise((resolve, reject) => {
-      this.rootRef.child('posts').on('value', snapshot => {
-        const data = snapshot.val()
+  allPosts(): Subject<Post[]> {
+    const postsObservable = new BehaviorSubject<Post[]>(null)
+
+    this.rootRef.child('posts').on('value', snapshot => {
+      const data = snapshot.val()
+      const posts = Object.keys(data)
+        .map(id => new Post(id, data[id]))
+        .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
+
+      postsObservable.next(posts)
+    })
+
+    return postsObservable
+  }
+
+  postsForUser(uid): Subject<Post[]> {
+    const postsObservable = new BehaviorSubject<Post[]>(null)
+
+    this.rootRef
+      .child('posts')
+      .orderByChild('userUid')
+      .equalTo(uid)
+      .on('value', snapshot => {
+        const data = snapshot.val() || {}
         const posts = Object.keys(data)
           .map(id => new Post(id, data[id]))
           .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
 
-        resolve(posts)
+        postsObservable.next(posts)
       })
-    })
-  }
 
-  postsForUser(uid) {
-    return new Promise((resolve, reject) => {
-      this.rootRef
-        .child('posts')
-        .orderByChild('userUid')
-        .equalTo(uid)
-        .on('value', snapshot => {
-          const data = snapshot.val() || {}
-          const posts = Object.keys(data)
-            .map(id => new Post(id, data[id]))
-            .sort((lhs, rhs) => rhs.date.getTime() - lhs.date.getTime())
-
-          resolve(posts)
-        })
-    })
+    return postsObservable
   }
 
   toggleFavorite(userUid: string = '', post: Post) {
-    return new Promise(resolve => {
-      const isAFavorite = post.favorites.indexOf(userUid) !== -1
-      const favorites = isAFavorite ?
-        post.favorites.filter(uid => uid !== userUid) :
-        [...post.favorites, userUid]
+    const isAFavorite = post.favorites.indexOf(userUid) !== -1
+    const favorites = isAFavorite ?
+      post.favorites.filter(uid => uid !== userUid) :
+      [...post.favorites, userUid]
 
-      resolve(favorites)
-
-      this.rootRef
-        .child('posts')
-        .child(post.id)
-        .child('favorites')
-        .set(favorites)
-    })
+    this.rootRef
+      .child('posts')
+      .child(post.id)
+      .child('favorites')
+      .set(favorites)
   }
 }

@@ -29,8 +29,9 @@ export class MeView {
   }
 
   downloadPosts() {
-    this.firebaseService.postsForUser(this.user.uid)
-      .then(posts => this.posts = posts)
+    this.firebaseService
+      .postsForUser(this.user.uid)
+      .subscribe(posts => this.posts = posts)
   }
 
   showUserActionSheet() {
@@ -61,10 +62,7 @@ export class MeView {
   login(email, password) {
     return this.firebaseService
       .login({email, password})
-      .then(user => {
-        this.user = user
-        this.downloadPosts()
-      })
+      .catch(error => console.error(error))
   }
 
   logout() {
