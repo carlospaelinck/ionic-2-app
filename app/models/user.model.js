@@ -1,5 +1,5 @@
 export default class User {
-  uid: String
+  uid: string
   name: string
   emailAddress: string
 

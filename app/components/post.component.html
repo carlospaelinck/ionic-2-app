@@ -1,18 +1,30 @@
-<ion-card>
-  <ion-item class="item">
-    <ion-avatar item-left>
-      <img src="{{post.userAvatarUrl(72)}}">
-    </ion-avatar>
-    <h2>{{post.userName}}</h2>
-    <h3>{{post.formattedDate()}}</h3>
-  </ion-item>
-  <ion-card-content>
-    {{post.content}}
-    <div>
-      {{post.favorites.length}}
-      <button [hidden]="!user" clear (click)="toggleFavorite()">
-        <ion-icon name="heart"></ion-icon>
-      </button>
-    </div>
-  </ion-card-content>
-</ion-card>
+<div class="post">
+  <ion-row>
+    <img class="user-img" src="{{post.userAvatarUrl(72)}}">
+    <ion-col>
+      <ion-row>
+        <ion-col class="name">
+          {{post.userName}}
+        </ion-col>
+        <ion-col class="date">
+          {{post.formattedDate()}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="content">
+          {{post.content}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <div
+          class="post-favorite-toggle" *ngIf="user"
+          [ngSwitch]="post.isFavoritedByUser(user.uid)"
+          (click)="toggleFavorite()">
+          <ion-icon *ngSwitchWhen="true" name="heart"></ion-icon>
+          <ion-icon *ngSwitchWhen="false" name="heart-outline"></ion-icon>
+        </div>
+        {{post.favorites.length}}
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</div>

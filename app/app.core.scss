@@ -7,8 +7,12 @@
 // By default each design mode includes these shared imports.
 // App Shared Sass variables belong in app.variables.scss.
 
+// @import "styles/flexboxgrid";
+
 @import "pages/feed/feed";
 
 @import "pages/me/me";
 
 @import "pages/people/people";
+
+@import "components/post.component";

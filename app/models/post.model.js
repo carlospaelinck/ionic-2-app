@@ -15,6 +15,7 @@ export default class Post {
     this.content = json.content || ''
     this.date = new Date(json.timestamp) || new Date()
     this.favorites = json.favorites || []
+    this.favoriteIcon
   }
 
   userAvatarUrl(size: number = 100): string {
@@ -24,6 +25,10 @@ export default class Post {
   isFavoritedByUser(uid: string): boolean {
     return this.favorites.indexOf(uid) !== -1
   }
+  //
+  // iconForFavoriteStatus(uid: string): string {
+  //   return this.isFavoritedByUser(uid) ? 'heart' : 'heart-outline'
+  // }
 
   formattedDate(): string {
     const isToday = moment().isSame(this.date, 'day')

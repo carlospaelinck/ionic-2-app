@@ -7249,3 +7249,29 @@ body {
 
 .feed-content-view {
   background: #eee; }
+
+.post {
+  background: #fff;
+  border-bottom: 1px solid #c8c7cc;
+  padding: 12px; }
+  .post .user-img {
+    border-radius: 2px;
+    height: 30px;
+    margin: 0 12px 0 0;
+    width: 30px; }
+  .post ion-row, .post ion-col {
+    padding: 0; }
+  .post .name, .post .date {
+    font-size: 0.9em; }
+  .post .name {
+    font-weight: 500; }
+  .post .date {
+    color: #555;
+    text-align: right; }
+  .post .content {
+    font-size: 1.1em;
+    line-height: 1.2em;
+    margin: 0.5em 0 0.75em; }
+
+.post-favorite-toggle {
+  display: inline-block; }
