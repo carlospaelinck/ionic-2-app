@@ -1,6 +1,6 @@
 import {Page} from 'ionic/ionic'
 import {PeopleDetailView} from './people.detail'
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 import User from 'models/user.model'
 
 @Page({
@@ -11,7 +11,7 @@ export class PeopleView {
   users: User[] = []
 
   constructor(
-    private firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseService
   ) {
     this.peopleDetailView = PeopleDetailView
     this.downloadAllUsers()

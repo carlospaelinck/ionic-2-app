@@ -1,18 +1,18 @@
 import {App, Platform, Config} from 'ionic/ionic'
 import {TabsPage} from './pages/tabs/tabs'
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 
 @App({
   templateUrl: 'build/app.html',
   // Check out the config API docs for more info
   // http://ionicframework.com/docs/v2/api/config/Config/
   config: {},
-  providers: [FirebaseSerivce]
+  providers: [FirebaseService]
 })
 
 export class MyApp {
   constructor(
-    private firebaseService: FirebaseSerivce,
+    private firebaseService: FirebaseService,
     platform: Platform
   ) {
     this.root = TabsPage

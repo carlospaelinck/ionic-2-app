@@ -1,7 +1,7 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic'
 import {PostComponent} from 'components/post.component'
 
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 import User from 'models/user.model'
 import Post from 'models/post.model'
 
@@ -16,7 +16,7 @@ export class MeView {
 
   constructor(
     private nav: NavController,
-    private firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseService
   ) {
     this.firebaseService.currentUser.subscribe(user => {
       this.user = user

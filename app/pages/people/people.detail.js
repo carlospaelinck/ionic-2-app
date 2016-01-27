@@ -2,7 +2,7 @@ import {Page, NavParams} from 'ionic/ionic'
 import {PostComponent} from 'components/post.component'
 import User from 'models/user.model'
 import Post from 'models/post.model'
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 
 @Page({
   templateUrl: 'build/pages/people/people.detail.html',
@@ -16,7 +16,7 @@ export class PeopleDetailView {
 
   constructor(
     params: NavParams,
-    private firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseService
   ) {
     this.pageUser = params.get('user')
 

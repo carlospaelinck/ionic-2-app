@@ -2,7 +2,7 @@ import {Page} from 'ionic/ionic'
 import User from 'models/user.model'
 import Post from 'models/post.model'
 import {PostComponent} from 'components/post.component'
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 
 @Page({
   templateUrl: 'build/pages/feed/feed.html',
@@ -14,7 +14,7 @@ export class FeedView {
   posts: Post[] = []
 
   constructor(
-    private firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseService
   ) {
     this.downloadPosts()
     this.firebaseService.currentUser.subscribe(user => this.user = user)

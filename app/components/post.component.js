@@ -2,7 +2,7 @@ import {Component, Input} from 'angular2/core'
 import {Item, Button, Icon} from 'ionic/ionic'
 import Post from 'models/post.model'
 import User from 'models/user.model'
-import FirebaseSerivce from 'services/firebase.service'
+import FirebaseService from 'services/firebase.service'
 
 @Component({
   selector: 'post-item',
@@ -15,7 +15,7 @@ export class PostComponent {
   @Input() user: User
 
   constructor(
-    private firebaseService: FirebaseSerivce
+    private firebaseService: FirebaseService
   ) {
   }
 
