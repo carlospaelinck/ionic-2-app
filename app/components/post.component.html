@@ -17,13 +17,16 @@
       </ion-row>
       <ion-row>
         <div
-          class="post-favorite-toggle" *ngIf="user"
+          class="favorite-toggle" *ngIf="user"
           [ngSwitch]="post.isFavoritedByUser(user.uid)"
           (click)="toggleFavorite()">
-          <ion-icon *ngSwitchWhen="true" name="heart"></ion-icon>
-          <ion-icon *ngSwitchWhen="false" name="heart-outline"></ion-icon>
+          <ion-icon class="star-active" *ngSwitchWhen="true" name="star"></ion-icon>
+          <ion-icon class="star-inactive" *ngSwitchWhen="false" name="star-outline"></ion-icon>
         </div>
-        {{post.favorites.length}}
+        <span class="favorites">
+          {{post.favorites.length}}
+          {{post.favorites.length === 1 ? 'favorite' : 'favorites'}}
+        </span>
       </ion-row>
     </ion-col>
   </ion-row>

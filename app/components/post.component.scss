@@ -1,6 +1,6 @@
 .post {
   background: #fff;
-  border-bottom: 1px solid #c8c7cc;
+  border-bottom: 0.55px solid #c8c7cc;
   padding: 12px;
 
   .user-img {
@@ -28,12 +28,31 @@
   }
 
   .content {
-    font-size: 1.1em;
+    font-size: 1.15em;
     line-height: 1.2em;
     margin: 0.5em 0 0.75em;
   }
-}
 
-.post-favorite-toggle {
-  display: inline-block;
+  .favorite-toggle {
+    display: inline-block;
+    margin: 0 5px 0 -3px;
+
+    ion-icon {
+      font-size: 22px;
+    }
+
+    .star-active {
+      color: map-get($colors, primary);
+    }
+
+    .star-inactive {
+      color: #444;
+    }
+  }
+
+  .favorites {
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 22px;
+  }
 }

@@ -8923,7 +8923,7 @@ body {
 
 .post {
   background: #fff;
-  border-bottom: 1px solid #c8c7cc;
+  border-bottom: 0.55px solid #c8c7cc;
   padding: 12px; }
   .post .user-img {
     border-radius: 2px;
@@ -8940,9 +8940,19 @@ body {
     color: #555;
     text-align: right; }
   .post .content {
-    font-size: 1.1em;
+    font-size: 1.15em;
     line-height: 1.2em;
     margin: 0.5em 0 0.75em; }
-
-.post-favorite-toggle {
-  display: inline-block; }
+  .post .favorite-toggle {
+    display: inline-block;
+    margin: 0 5px 0 -3px; }
+    .post .favorite-toggle ion-icon {
+      font-size: 22px; }
+    .post .favorite-toggle .star-active {
+      color: #387ef5; }
+    .post .favorite-toggle .star-inactive {
+      color: #444; }
+  .post .favorites {
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 22px; }
