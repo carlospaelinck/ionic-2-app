@@ -1,3 +1,15 @@
 .page3 {
 
 }
+
+.user-img {
+  display: inline-block;
+  border-radius: 2px;
+  height: 30px;
+  margin: 0 12px 0 0;
+  width: 30px;
+
+  + .content {
+    display: inline-block;
+  }
+}

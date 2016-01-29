@@ -7,15 +7,15 @@
 
 <ion-content class="page3">
   <ion-list>
-    <ion-item *ngFor="#user of users">
-      <ion-avatar item-left>
-        <img src="{{user.avatarUrl(72)}}">
-      </ion-avatar>
-      <h2>{{user.name}}</h2>
-      <p>{{user.emailAddress}}</p>
-      <button [navPush]="[peopleDetailView, {user: user}]">
-        View
-      </button>
-    </ion-item>
+    <button
+      ion-item
+      *ngFor="#user of users"
+      [navPush]="[peopleDetailView, {user: user}]">
+      <img class="user-img" src="{{user.avatarUrl(72)}}">
+      <div class="content">
+        <h2>{{user.name}}</h2>
+        <p>{{user.emailAddress}}</p>
+      </div>
+    </button>
   </ion-list>
 </ion-content>

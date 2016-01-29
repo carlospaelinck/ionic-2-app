@@ -8921,15 +8921,19 @@ body {
 .feed-content-view {
   background: #eee; }
 
+.user-img {
+  display: inline-block;
+  border-radius: 2px;
+  height: 30px;
+  margin: 0 12px 0 0;
+  width: 30px; }
+  .user-img + .content {
+    display: inline-block; }
+
 .post {
   background: #fff;
   border-bottom: 0.55px solid #c8c7cc;
   padding: 12px; }
-  .post .user-img {
-    border-radius: 2px;
-    height: 30px;
-    margin: 0 12px 0 0;
-    width: 30px; }
   .post ion-row, .post ion-col {
     padding: 0; }
   .post .name, .post .date {
