@@ -1,5 +1,5 @@
 
-<ion-navbar *navbar class="android-attr">
+<ion-navbar primary *navbar class="android-attr">
   <ion-title>
     Me
   </ion-title>
@@ -10,7 +10,7 @@
   </ion-buttons>
 </ion-navbar>
 
-<ion-content class="page2">
+<ion-content class="me">
   <ion-list [hidden]="user">
     <ion-input>
       <input #emailAddress type="text" placeholder="Email Address">
@@ -25,20 +25,20 @@
     </button>
   </ion-list>
   <div [hidden]="!user">
-    <ion-card>
-      <ion-card-header>
-        Create New Post
-      </ion-card-header>
+    <div class="new-post">
       <textarea #postTextArea></textarea>
-      <button light clear
+      <button full light
+        [disabled]="postTextArea.value.length < 1"
         (click)="createPost(postTextArea.value)">
         Post
       </button>
-    </ion-card>
-    <post-item
-      *ngFor="#post of posts"
-      [post]="post"
-      [user]="user">
-    </post-item>
+    </div>
+    <div class="my-posts">
+      <post-item
+        *ngFor="#post of posts"
+        [post]="post"
+        [user]="user">
+      </post-item>
+    </div>
   </div>
 </ion-content>

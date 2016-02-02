@@ -1,3 +1,25 @@
-.page2 {
+.me {
+  .new-post {
+    background: #fff;
 
+    textarea {
+      border: none;
+      box-sizing: border-box;
+      font-size: 1.25em;
+      line-height: 1.2em;
+      margin: 0;
+      padding: 0.5em;
+      width: 100%;
+
+      + button {
+        margin: 0;
+        border-top: 0.5px solid #c8c7cc;
+        border-bottom: 0.5px solid #c8c7cc;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .my-posts {
+  }
 }
