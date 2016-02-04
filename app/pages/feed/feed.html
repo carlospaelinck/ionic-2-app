@@ -3,9 +3,18 @@
 </ion-navbar>
 
 <ion-content class="feed-content-view">
-  <div class="header-bar">All Posts</div>
+  <div class="header-bar" *ngIf="user">
+    <ion-segment [(ngModel)]="postFilter" (change)="refreshPostSource()">
+    <ion-segment-button value="allPosts">
+      All Posts
+    </ion-segment-button>
+    <ion-segment-button value="favoritedPosts">
+      Favorited
+    </ion-segment-button>
+  </ion-segment>
+  </div>
   <post-item
-    *ngFor="#post of posts"
+    *ngFor="#post of filteredPosts"
     [post]="post"
     [user]="user">
   </post-item>

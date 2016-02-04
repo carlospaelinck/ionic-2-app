@@ -15,16 +15,28 @@ import Post from 'models/post.model'
 export class FeedView {
   user: User
   posts: Post[] = []
+  filteredPosts: Post[] = []
 
   constructor(
     private postService: PostService,
     private userService: UserService
   ) {
-    this.downloadPosts()
+    this.postFilter = 'allPosts'
     this.userService.currentUser.subscribe(user => this.user = user)
+
+    this.postService.allPosts().subscribe(posts => {
+      this.posts = posts
+      this.refreshPostSource()
+    })
   }
 
-  downloadPosts() {
-    this.postService.allPosts().subscribe(posts => this.posts = posts)
+  refreshPostSource() {
+    if (this.postFilter === 'allPosts') {
+      this.filteredPosts = this.posts
+
+    } else if (this.postFilter === 'favoritedPosts') {
+      const filterFavorites = post => post.favorites.indexOf(this.user.uid) !== -1
+      this.filteredPosts = this.posts.filter(filterFavorites)
+    }
   }
 }

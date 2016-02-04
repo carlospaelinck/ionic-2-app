@@ -1,6 +1,6 @@
 .header-bar {
-  background: map-get($colors, primary);
-  border-bottom: 0.5px solid darken(map-get($colors, primary), 8%);
+  background: lighten(map-get($colors, primary), 25%);
+  border-bottom: 0.5px solid lighten(map-get($colors, primary), 15%);
   color: #fff;
   padding: 0.5em 0;
   font-size: 1em;
@@ -8,6 +8,19 @@
   text-align: center;
 
   &.bar-top-border {
-    border-top: 0.5px solid darken(map-get($colors, primary), 8%);
+    border-top: 0.5px solid lighten(map-get($colors, primary), 15%);
+  }
+
+  ion-segment {
+    width: 97%;
+    margin: 0 auto
+  }
+
+  + ion-list {
+    .item {
+      &:first-child {
+        border-top: 0.5px solid lighten(map-get($colors, primary), 15%);
+      }
+    }
   }
 }
