@@ -1,10 +1,11 @@
 <ion-navbar primary *navbar>
   <ion-title>
-    {{pageUser.name}}
+    Poster
   </ion-title>
 </ion-navbar>
 
 <ion-content class="people-detail-view">
+  <div class="header-bar">Posts by {{pageUser.name}}</div>
   <post-item
     *ngFor="#post of posts"
     [post]="post"

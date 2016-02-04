@@ -1,8 +1,11 @@
 import {Page} from 'ionic/ionic'
+import {PostComponent} from 'components/post.component'
+
+import PostService from 'services/post.service'
+import UserService from 'services/user.service'
+
 import User from 'models/user.model'
 import Post from 'models/post.model'
-import {PostComponent} from 'components/post.component'
-import FirebaseService from 'services/firebase.service'
 
 @Page({
   templateUrl: 'build/pages/feed/feed.html',
@@ -14,13 +17,14 @@ export class FeedView {
   posts: Post[] = []
 
   constructor(
-    private firebaseService: FirebaseService
+    private postService: PostService,
+    private userService: UserService
   ) {
     this.downloadPosts()
-    this.firebaseService.currentUser.subscribe(user => this.user = user)
+    this.userService.currentUser.subscribe(user => this.user = user)
   }
 
   downloadPosts() {
-    this.firebaseService.allPosts().subscribe(posts => this.posts = posts)
+    this.postService.allPosts().subscribe(posts => this.posts = posts)
   }
 }

@@ -1,0 +1,13 @@
+.header-bar {
+  background: map-get($colors, primary);
+  border-bottom: 0.5px solid darken(map-get($colors, primary), 8%);
+  color: #fff;
+  padding: 0.5em 0;
+  font-size: 1em;
+  font-weight: 500;
+  text-align: center;
+
+  &.bar-top-border {
+    border-top: 0.5px solid darken(map-get($colors, primary), 8%);
+  }
+}

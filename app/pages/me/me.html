@@ -1,7 +1,7 @@
 
 <ion-navbar primary *navbar class="android-attr">
   <ion-title>
-    Me
+    Poster
   </ion-title>
   <ion-buttons end>
     <button (click)="showUserActionSheet()" [hidden]="!user">
@@ -25,14 +25,19 @@
     </button>
   </ion-list>
   <div [hidden]="!user">
+    <div class="post-hero">
+      <img class="hero-img" src="{{user.avatarUrl(120)}}">
+      <h1>{{user.name}}</h1>
+    </div>
     <div class="new-post">
       <textarea #postTextArea></textarea>
-      <button full light
+      <button light
         [disabled]="postTextArea.value.length < 1"
         (click)="createPost(postTextArea.value)">
         Post
       </button>
     </div>
+    <div class="header-bar bar-top-border">My Posts</div>
     <div class="my-posts">
       <post-item
         *ngFor="#post of posts"

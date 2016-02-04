@@ -1,7 +1,10 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic'
+import {ViewChild, Renderer, ElementRef} from 'angular2/core'
 import {PostComponent} from 'components/post.component'
 
-import FirebaseService from 'services/firebase.service'
+import PostService from 'services/post.service'
+import UserService from 'services/user.service'
+
 import User from 'models/user.model'
 import Post from 'models/post.model'
 
@@ -11,14 +14,18 @@ import Post from 'models/post.model'
 })
 
 export class MeView {
+  @ViewChild('postTextArea') postTextArea: ElementRef
+
   user: User
   posts: Post[] = []
 
   constructor(
+    private renderer: Renderer,
     private nav: NavController,
-    private firebaseService: FirebaseService
+    private postService: PostService,
+    private userService: UserService
   ) {
-    this.firebaseService.currentUser.subscribe(user => {
+    this.userService.currentUser.subscribe(user => {
       this.user = user
       if (user) {
         this.downloadPosts()
@@ -29,7 +36,7 @@ export class MeView {
   }
 
   downloadPosts() {
-    this.firebaseService
+    this.postService
       .postsForUser(this.user.uid)
       .subscribe(posts => this.posts = posts)
   }
@@ -53,19 +60,23 @@ export class MeView {
       return
     }
 
-    this.firebaseService.createNewPost({
-      user: this.user,
-      content
-    })
+    this.postService
+      .createNewPost({
+        user: this.user,
+        content
+      })
+      .then(() => {
+        this.renderer.setElementProperty(this.postTextArea, 'value', '')
+      })
   }
 
   login(email, password) {
-    return this.firebaseService
+    return this.userService
       .login({email, password})
       .catch(error => console.error(error))
   }
 
   logout() {
-    this.firebaseService.logout()
+    this.userService.logout()
   }
 }

@@ -1,8 +1,11 @@
 import {Page, NavParams} from 'ionic/ionic'
 import {PostComponent} from 'components/post.component'
+
+import PostService from 'services/post.service'
+import UserService from 'services/user.service'
+
 import User from 'models/user.model'
 import Post from 'models/post.model'
-import FirebaseService from 'services/firebase.service'
 
 @Page({
   templateUrl: 'build/pages/people/people.detail.html',
@@ -16,15 +19,16 @@ export class PeopleDetailView {
 
   constructor(
     params: NavParams,
-    private firebaseService: FirebaseService
+    private postService: PostService,
+    private userService: UserService
   ) {
     this.pageUser = params.get('user')
 
-    this.firebaseService
+    this.postService
       .postsForUser(this.pageUser.uid)
       .subscribe(posts => this.posts = posts)
 
-    this.firebaseService
+    this.userService
       .currentUser
       .subscribe(user => this.user = user)
   }

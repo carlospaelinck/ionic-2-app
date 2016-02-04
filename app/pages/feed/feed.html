@@ -1,8 +1,9 @@
 <ion-navbar primary *navbar>
-  <ion-title>Feed</ion-title>
+  <ion-title>Poster</ion-title>
 </ion-navbar>
 
 <ion-content class="feed-content-view">
+  <div class="header-bar">All Posts</div>
   <post-item
     *ngFor="#post of posts"
     [post]="post"

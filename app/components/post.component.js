@@ -1,8 +1,10 @@
 import {Component, Input} from 'angular2/core'
 import {Item, Button, Icon} from 'ionic/ionic'
+
+import PostService from 'services/post.service'
+
 import Post from 'models/post.model'
 import User from 'models/user.model'
-import FirebaseService from 'services/firebase.service'
 
 @Component({
   selector: 'post-item',
@@ -15,11 +17,11 @@ export class PostComponent {
   @Input() user: User
 
   constructor(
-    private firebaseService: FirebaseService
+    private postService: PostService
   ) {
   }
 
   toggleFavorite() {
-    this.firebaseService.toggleFavorite(this.user.uid, this.post)
+    this.postService.toggleFavorite(this.user.uid, this.post)
   }
 }
