@@ -1,8 +1,10 @@
 const moment = require('moment')
+const md5 = require('md5')
 
 export default class Post {
   id: string
   userUid: string
+  hash: string
   userName: string
   content: string
   date: Date
@@ -13,22 +15,19 @@ export default class Post {
     this.userUid = json.userUid || ''
     this.userName = json.userName || ''
     this.content = json.content || ''
+    this.hash = md5(this.userName)
     this.date = new Date(json.timestamp) || new Date()
     this.favorites = json.favorites || []
     this.favoriteIcon
   }
 
   userAvatarUrl(size: number = 100): string {
-    return `http://api.adorable.io/avatars/${size}/${this.userUid}.png`
+    return `http://www.gravatar.com/avatar/${this.hash}?d=retro&s=${size}`
   }
 
   isFavoritedByUser(uid: string): boolean {
     return this.favorites.indexOf(uid) !== -1
   }
-  //
-  // iconForFavoriteStatus(uid: string): string {
-  //   return this.isFavoritedByUser(uid) ? 'heart' : 'heart-outline'
-  // }
 
   formattedDate(): string {
     const isToday = moment().isSame(this.date, 'day')
