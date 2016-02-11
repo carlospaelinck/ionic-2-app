@@ -1,6 +1,6 @@
 .me {
   .post-hero {
-    background: map-get($colors, primary);
+    background: lighten(map-get($colors, primary), 5%);
     border-bottom: 0.5px solid darken(map-get($colors, primary), 8%);
     padding: 1em 0;
     text-align: center;
@@ -16,11 +16,16 @@
     }
 
     h1 {
-      color: #fff;
       font-weight: 500;
       font-size: 1.5em;
       margin: 0.33em 0 0;
       text-align: center;
+
+      @if (lightness(map-get($colors, primary)) > 50) {
+        color: #000;
+      } @else {
+        color: #fff;
+      }
     }
   }
 
@@ -39,6 +44,7 @@
       height: 60px;
       padding: 2%;
       width: 73%;
+      resize: none;
     }
 
     button {
@@ -52,8 +58,5 @@
       height: 60px;
       width: 25%;
     }
-  }
-
-  .my-posts {
   }
 }

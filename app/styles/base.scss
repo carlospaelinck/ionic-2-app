@@ -1,14 +1,14 @@
 .header-bar {
-  background: lighten(map-get($colors, primary), 25%);
-  border-bottom: 0.5px solid lighten(map-get($colors, primary), 15%);
-  color: #fff;
+  background: #fff;
+  border-bottom: 0.5px solid darken(map-get($colors, primary), 5%);
+  color: #000;
   padding: 0.5em 0;
   font-size: 1em;
   font-weight: 500;
   text-align: center;
 
   &.bar-top-border {
-    border-top: 0.5px solid lighten(map-get($colors, primary), 15%);
+    border-top: 0.5px solid darken(map-get($colors, primary), 5%);
   }
 
   ion-segment {
@@ -19,7 +19,7 @@
   + ion-list {
     .item {
       &:first-child {
-        border-top: 0.5px solid lighten(map-get($colors, primary), 15%);
+        border-top: 0.5px solid darken(map-get($colors, primary), 5%);
       }
     }
   }

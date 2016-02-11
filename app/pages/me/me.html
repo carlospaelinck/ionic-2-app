@@ -12,12 +12,14 @@
 
 <ion-content class="me">
   <ion-list [hidden]="user">
-    <ion-input>
-      <input #emailAddress type="text" placeholder="Email Address">
-    </ion-input>
-    <ion-input>
-      <input #password type="password" placeholder="Password">
-    </ion-input>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input #emailAddress type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input #password type="password"></ion-input>
+    </ion-item>
     <button
       (click)="login(emailAddress.value, password.value)"
       full>
@@ -32,7 +34,6 @@
     <div class="new-post">
       <textarea #postTextArea></textarea>
       <button light
-        [disabled]="postTextArea.value.length < 1"
         (click)="createPost(postTextArea.value)">
         Post
       </button>

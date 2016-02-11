@@ -1,5 +1,5 @@
 import {Page, ActionSheet, NavController} from 'ionic/ionic'
-import {ViewChild, Renderer, ElementRef} from 'angular2/core'
+import {ViewChild, ElementRef} from 'angular2/core'
 import {PostComponent} from 'components/post.component'
 
 import PostService from 'services/post.service'
@@ -20,7 +20,6 @@ export class MeView {
   posts: Post[] = []
 
   constructor(
-    private renderer: Renderer,
     private nav: NavController,
     private postService: PostService,
     private userService: UserService
@@ -65,9 +64,7 @@ export class MeView {
         user: this.user,
         content
       })
-      .then(() => {
-        this.renderer.setElementProperty(this.postTextArea, 'value', '')
-      })
+      .then(() => this.postTextArea.nativeElement.value = '')
   }
 
   login(email, password) {
