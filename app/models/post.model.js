@@ -1,5 +1,5 @@
-const moment = require('moment')
-const md5 = require('md5')
+import * as moment from 'moment'
+import * as md5 from 'md5'
 
 export default class Post {
   id: string

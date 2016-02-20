@@ -1,4 +1,4 @@
-const md5 = require('md5')
+import * as md5 from 'md5'
 
 export default class User {
   uid: string
