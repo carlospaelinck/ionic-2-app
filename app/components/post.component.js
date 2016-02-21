@@ -1,5 +1,5 @@
 import {Component, Input} from 'angular2/core'
-import {Item, Button, Icon} from 'ionic/ionic'
+import {Item, Button, Icon} from 'ionic-framework/ionic'
 
 import PostService from 'services/post.service'
 

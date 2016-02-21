@@ -1,4 +1,5 @@
-import {App, Platform, Config} from 'ionic/ionic'
+import {App, Platform, Config} from 'ionic-framework/ionic'
+import {Type} from 'angular2/core'
 import {TabsPage} from './pages/tabs/tabs'
 
 import FirebaseService from 'services/firebase.service'
@@ -14,12 +15,12 @@ import UserService from 'services/user.service'
 })
 
 export class MyApp {
+  root: Type = TabsPage
+
   constructor(
     private userService: UserService,
     platform: Platform
   ) {
-    this.root = TabsPage
-
     platform.ready().then(() => {
       this.userService.checkAuthenticationStatus()
     })

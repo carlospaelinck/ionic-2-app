@@ -1,4 +1,4 @@
-import {Page, ActionSheet, NavController} from 'ionic/ionic'
+import {Page, ActionSheet, NavController} from 'ionic-framework/ionic'
 import {ViewChild, ElementRef} from 'angular2/core'
 import {PostComponent} from 'components/post.component'
 

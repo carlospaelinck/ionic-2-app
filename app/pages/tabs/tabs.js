@@ -1,4 +1,4 @@
-import {Page} from 'ionic/ionic'
+import {Page} from 'ionic-framework/ionic'
 import {FeedView} from '../feed/feed.view'
 import {MeView} from '../me/me.view'
 import {PeopleView} from '../people/people.view'
