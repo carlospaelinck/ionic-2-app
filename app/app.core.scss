@@ -10,10 +10,54 @@
 
 @import "styles/base";
 
-@import "pages/feed/feed";
+.post {
+  background: #fff;
+  border-bottom: 0.55px solid #c8c7cc;
+  padding: 12px;
 
-@import "pages/me/me";
+  ion-row, ion-col {
+    padding: 0;
+  }
 
-@import "pages/people/people";
+  .name, .date {
+    font-size: 0.9em;
+  }
 
-@import "components/post.component";
+  .name {
+    font-weight: 500;
+  }
+
+  .date {
+    color: #555;
+    text-align: right;
+  }
+
+  .content {
+    font-size: 1.15em;
+    line-height: 1.2em;
+    margin: 0.5em 0 0.75em;
+  }
+
+  .favorite-toggle {
+    display: inline-block;
+    margin: 0 5px 0 -3px;
+
+    ion-icon {
+      font-size: 22px;
+    }
+
+    .star-active {
+      color: map-get($colors, primary);
+    }
+
+    .star-inactive {
+      color: #444;
+    }
+  }
+
+  .favorites {
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 22px;
+  }
+}
