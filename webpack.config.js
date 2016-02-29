@@ -16,11 +16,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         loader: 'awesome-typescript',
         query: {
           doTypeCheck: false,
-          useWebpackText: true
+          resolveGlobs: true
         },
         include: path.resolve('app'),
         exclude: /node_modules/
@@ -46,8 +46,9 @@ module.exports = {
       'ionic': 'ionic-framework',
       'services' : 'services',
       'models' : 'models',
-      'components' : 'components'
+      'components' : 'components',
+      'pages': 'pages'
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.ts']
   }
 }

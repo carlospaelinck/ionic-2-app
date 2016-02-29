@@ -2,7 +2,6 @@ import {Injectable} from 'angular2/core'
 import {Subject, BehaviorSubject} from 'rxjs/Rx'
 
 import FirebaseService from 'services/firebase.service'
-
 import User from 'models/user.model'
 
 @Injectable()
