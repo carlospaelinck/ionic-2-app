@@ -1,14 +1,8 @@
 import {Page} from 'ionic-framework/ionic'
+import * as template from './index.view.html';
 
 @Page({
-  template: `
-  <ion-navbar *navbar>
-    <ion-title>Modus Create</ion-title>
-  </ion-navbar>
-  <ion-content>
-    Hello Modus!
-  </ion-content>
-  `
+  template: template
 })
 
 export class IndexView {}

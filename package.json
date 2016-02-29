@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^0.15.10",
+    "html-loader": "^0.4.3",
     "strip-sourcemap-loader": "0.0.1",
     "typescript": "^1.8.2"
   },
