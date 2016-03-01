@@ -1,4 +1,4 @@
-import { Page } from 'ionic-framework/ionic';
+import { Page } from 'ionic-angular';
 import * as template from './index.view.html';
 
 @Page({

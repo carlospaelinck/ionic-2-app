@@ -56,7 +56,6 @@ module.exports = {
             path.join(__dirname, 'app')
         ],
         alias: {
-            'ionic': 'ionic-framework',
             'services' : 'services',
             'models' : 'models',
             'components' : 'components',

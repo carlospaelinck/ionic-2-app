@@ -1,4 +1,4 @@
-import { App, Platform } from 'ionic-framework/ionic';
+import { App, Platform } from 'ionic-angular';
 import { Type } from 'angular2/core';
 
 import { IndexView } from 'pages/index/index.view.ts';
