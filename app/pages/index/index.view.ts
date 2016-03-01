@@ -1,8 +1,8 @@
-import {Page} from 'ionic-framework/ionic'
+import { Page } from 'ionic-framework/ionic';
 import * as template from './index.view.html';
 
 @Page({
-  template: template
+    template: template
 })
 
-export class IndexView {}
+export class IndexView {};

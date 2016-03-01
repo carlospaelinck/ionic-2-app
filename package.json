@@ -15,10 +15,12 @@
     "awesome-typescript-loader": "^0.15.10",
     "html-loader": "^0.4.3",
     "strip-sourcemap-loader": "0.0.1",
+    "tslint": "^3.5.0",
+    "tslint-loader": "^2.1.0",
     "typescript": "^1.8.2"
   },
-  "name": "carlosapp",
-  "description": "carlosApp: An Ionic project",
+  "name": "ionic2-prototype",
+  "description": "Modus Create Ionic 2 Prototype",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
