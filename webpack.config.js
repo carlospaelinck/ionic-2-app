@@ -1,14 +1,39 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProd = nodeEnv === 'production';
+
+const plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity,
+            filename: 'vendor.bundle.js'
+        }),
+    new webpack.optimize.DedupePlugin()
+];
+
+if (isProd) {
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        },
+        sourceMap: true,
+        minimize: false,
+        comments: true,
+        mangle: false
+    }));
+}
+
 module.exports = {
-    devtool: 'source-map',
+    devtool: isProd ? undefined : 'source-map',
     entry: {
         js: path.resolve(__dirname, 'app/app.ts'),
         vendor: [
             path.normalize('es6-shim/es6-shim.min'),
             'reflect-metadata',
             path.normalize('zone.js/dist/zone-microtask'),
+            'firebase',
             'ionic-angular'
         ]
     },
@@ -67,23 +92,5 @@ module.exports = {
             models: path.resolve(__dirname, 'app/models')
         }
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity,
-            filename: 'vendor.bundle.js'
-        }),
-        new webpack.optimize.DedupePlugin()
-/*
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            sourceMap: false,
-            minimize: true,
-            comments: false,
-            mangle: false
-        })
-*/
-    ]
+    plugins
 };
