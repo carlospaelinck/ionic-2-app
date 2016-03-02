@@ -1,4 +1,4 @@
-import {App, Platform, Config} from 'ionic-framework/ionic'
+import {App, Platform, Config} from 'ionic-angular'
 import {Type} from 'angular2/core'
 import {TabsPage} from './pages/tabs/tabs'
 

@@ -1,4 +1,4 @@
-import {Page, NavParams} from 'ionic-framework/ionic'
+import {Page, NavParams} from 'ionic-angular'
 import {PostComponent} from 'components/post.component'
 
 import PostService from 'services/post.service'

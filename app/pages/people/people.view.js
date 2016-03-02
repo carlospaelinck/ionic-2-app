@@ -1,4 +1,4 @@
-import {Page} from 'ionic-framework/ionic'
+import {Page} from 'ionic-angular'
 import {PeopleDetailView} from './people.detail'
 
 import UserService from 'services/user.service'
