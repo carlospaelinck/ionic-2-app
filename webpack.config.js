@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'source-map',
     entry: {
-        js: path.join(__dirname, 'app/app.ts'),
+        js: path.resolve(__dirname, 'app/app.ts'),
         vendor: [
             path.normalize('es6-shim/es6-shim.min'),
             'reflect-metadata',
@@ -57,9 +57,15 @@ module.exports = {
     resolve: {
         extensions: [ '', '.js', '.ts' ],
         modules: [
-            path.join(__dirname, 'app'),
+            path.resolve(__dirname, 'app'),
             'node_modules'
-        ]
+        ],
+        alias: {
+            pages: path.resolve(__dirname, 'app/pages'),
+            services: path.resolve(__dirname, 'app/services'),
+            components: path.resolve(__dirname, 'app/components'),
+            models: path.resolve(__dirname, 'app/models')
+        }
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
