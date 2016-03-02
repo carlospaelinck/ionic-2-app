@@ -1,7 +1,7 @@
 import { App, Platform } from 'ionic-angular';
 import { Type } from 'angular2/core';
 
-import { IndexView } from 'pages/index/index.view.ts';
+import { IndexView } from './pages/index/index.view.ts';
 
 @App({
     template: '<ion-nav [root]="rootPage"></ion-nav>',

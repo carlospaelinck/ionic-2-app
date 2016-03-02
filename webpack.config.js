@@ -1,17 +1,21 @@
-var path = require('path')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     devtool: 'source-map',
-    entry: [
-        path.normalize('es6-shim/es6-shim.min'),
-        'reflect-metadata',
-        path.normalize('zone.js/dist/zone-microtask'),
-        path.resolve('app/app')
-    ],
+    entry: {
+        js: path.join(__dirname, 'app/app.ts'),
+        vendor: [
+            path.normalize('es6-shim/es6-shim.min'),
+            'reflect-metadata',
+            path.normalize('zone.js/dist/zone-microtask'),
+            'ionic-angular'
+        ]
+    },
     output: {
         path: path.resolve('www/build/js'),
         filename: 'app.bundle.js',
-        pathinfo: false // show module paths in the bundle, handy for debugging
+        pathinfo: false
     },
     module: {
         preLoaders: [
@@ -26,9 +30,9 @@ module.exports = {
                 loader: 'awesome-typescript',
                 query: {
                     doTypeCheck: false,
-                    resolveGlobs: true
+                    resolveGlobs: false
                 },
-                include: path.resolve('app'),
+                include: [ path.resolve(__dirname, 'app') ],
                 exclude: /node_modules/
             },
             {
@@ -51,16 +55,29 @@ module.exports = {
         emitErrors: true
     },
     resolve: {
-        root: [
-            path.join(__dirname, 'node_modules'),
-            path.join(__dirname, 'app')
-        ],
-        alias: {
-            'services' : 'services',
-            'models' : 'models',
-            'components' : 'components',
-            'pages': 'pages'
-        },
-        extensions: ['', '.js', '.ts']
-    }
-}
+        extensions: [ '', '.js', '.ts' ],
+        modules: [
+            path.join(__dirname, 'app'),
+            'node_modules'
+        ]
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity,
+            filename: 'vendor.bundle.js'
+        }),
+        new webpack.optimize.DedupePlugin()
+/*
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            sourceMap: false,
+            minimize: true,
+            comments: false,
+            mangle: false
+        })
+*/
+    ]
+};
