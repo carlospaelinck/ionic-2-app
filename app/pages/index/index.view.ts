@@ -23,7 +23,7 @@ export class IndexView {
 
     showTransactionView() {
         const transactionModal = Modal.create(TransactionView);
-        this.nav.present(transactionModal)
+        this.nav.present(transactionModal);
     }
 };
 
