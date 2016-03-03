@@ -1,8 +1,7 @@
-<ion-navbar *navbar>
-    <ion-title>Modus Create</ion-title>
-</ion-navbar>
-<ion-content>
-    <div class="padding">
-        Hello Modus!
-    </div>
-</ion-content>
+<ion-tabs>
+    <ion-tab [root]="dashboardView" tabIcon="analytics" tabTitle="Dashboard"></ion-tab>
+    <ion-tab [root]="ordersView" tabIcon="clipboard" tabTitle="Orders"></ion-tab>
+    <ion-tab (select)="showTransactionView()" tabIcon="add" tabTitle="Transaction"></ion-tab>
+    <ion-tab [root]="customersView" tabIcon="contact" tabTitle="Customers"></ion-tab>
+    <ion-tab [root]="moreView" tabIcon="more" tabTitle="More"></ion-tab>
+</ion-tabs>
