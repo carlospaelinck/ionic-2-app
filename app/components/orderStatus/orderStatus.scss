@@ -1,0 +1,24 @@
+order-status-badge {
+    position: absolute;
+    bottom: 23px;
+    right: 10px;
+
+    ion-badge {
+        font-size: 8px;
+        text-transform: uppercase;
+        border-radius: 0;
+
+        &.order-status-badge-0 {
+            background: #8A9097;
+        }
+
+        &.order-status-badge-1 {
+            background: map-get($colors, 'primary');
+        }
+
+        &.order-status-badge-2 {
+            background: #8A9097;
+        }
+    }
+
+}
