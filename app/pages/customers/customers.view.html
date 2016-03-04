@@ -6,6 +6,10 @@
         </button>
       </ion-buttons>
 </ion-navbar>
-<ion-content padding>
-    Customers View
+<ion-content>
+{{customers.length}}
+    <ion-item-group>
+        <customer-item *ngFor="#customer of customers" [customer]="customer">
+        </customer-item>
+    </ion-item-group>
 </ion-content>
