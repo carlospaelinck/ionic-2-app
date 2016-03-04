@@ -1,6 +1,56 @@
-<ion-navbar *navbar>
-    <ion-title>Orders</ion-title>
+<ion-navbar *navbar class="motion-header">
+    <motion-logo></motion-logo>
+    <ion-buttons end>
+        <button white>
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
 </ion-navbar>
-<ion-content padding>
-    Orders View
+<ion-content>
+    <ion-segment class="motion-segment-bar" [(ngModel)]="section">
+        <ion-segment-button value="orders">
+            Orders
+        </ion-segment-button>
+        <ion-segment-button value="quotes">
+            Quotes
+        </ion-segment-button>
+        <ion-segment-button value="shippers">
+            Shippers
+        </ion-segment-button>
+    </ion-segment>
+    <div padding>
+        <ion-row>
+            <ion-col width-33>
+                <h5>
+                    {{ orders.length }} {{ section.toUpperCase() }} <br>
+                    <small class="muted">Since Jan 1, 2015</small>
+                </h5>
+            </ion-col>
+            <ion-col style="text-align: right;">
+                <button clear small class="motion-action-button">
+                    <ion-icon name="funnel"></ion-icon> Filter
+                </button>
+                <button clear small class="motion-action-button">
+                    <ion-icon name="sort"></ion-icon> Sort
+                </button>
+                <button clear small class="motion-action-button">
+                    <ion-icon name="add"></ion-icon> New
+                </button>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div [ngSwitch]="section">
+        <ion-item-group *ngSwitchWhen="'orders'">
+            <ion-item-divider>Saved For Later</ion-item-divider>
+            <order-item *ngFor="#order of orders" [order]="order"></order-item>
+            <ion-item-divider>Due October 2015</ion-item-divider>
+            <order-item *ngFor="#order of orders" [order]="order"></order-item>
+        </ion-item-group>
+        <ion-item-group *ngSwitchWhen="'quotes'">
+            <order-item *ngFor="#order of orders" [order]="order"></order-item>
+        </ion-item-group>
+        <ion-item-group *ngSwitchWhen="'shippers'">
+            <order-item *ngFor="#order of orders" [order]="order"></order-item>
+        </ion-item-group>
+    </div>
 </ion-content>

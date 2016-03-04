@@ -9,3 +9,74 @@
 
 
 @import "styles/base";
+@import "components/orderStatus/orderStatus.scss";
+@import "components/orderItem/orderItem.scss";
+@import "components/motionLogo/motionLogo.scss";
+
+// orange.
+.secondary { color: map-get($colors, 'secondary'); }
+.muted { color: map-get($colors, 'muted'); }
+
+// override list divider styles.
+ion-item-divider {
+    color: #747577;
+    font-size: 12px;
+    padding: 7px 16px 8px 16px;
+    background: #F3F5F8;
+}
+
+// tabbar styles.
+tabbar {
+    background: #EBEEF4;
+    border-top: 2px solid map-get($colors, 'primary');
+
+    .tab-button {
+        color: #34343D;
+        min-width: auto;
+    }
+
+    .tab-button-icon {
+        font-size: 28px;
+        height: 26px;
+        min-width: 37px;
+    }
+}
+
+// header on all pages, fancy BG.
+.motion-header {
+    .toolbar-background {
+        background: #2A2A32;
+        border: 0;
+    }
+}
+
+// filter, sort, +new
+.motion-action-button {
+    color: map-get($colors, 'secondary');
+    margin: 0;
+    padding: 0px 5px;
+    min-width: 50px;
+}
+
+.motion-segment-bar {
+
+    .segment-button {
+        border: 0;
+        height: 4.6rem;
+        line-height: 4.6rem;
+        font-size: 1.3rem;
+        background: map-get($colors, 'primary');
+        color: #E39691;
+        text-transform: uppercase;
+
+        &.segment-activated {
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+
+    .segment-button:first-of-type,
+    .segment-button:last-of-type {
+        border-radius: 0;
+    }
+}

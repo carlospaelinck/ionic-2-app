@@ -1,0 +1,12 @@
+<ion-item>
+    <h2>{{ order.name }}</h2>
+    <p>{{ order.orderNumber }} - {{ order.po }}</p>
+    <br />
+    <p><strong class="secondary">{{ order.salesPrice | currency:'USD':true }}</strong> sale price</p>
+    <p>{{ order.description }}</p>
+    <div class="dates">
+        <p>Due {{ order.dueDate | date: 'MMM d' }}</p>
+        <p class="muted">Ordered {{ order.orderDate | date: 'MMM d' }}</p>
+    </div>
+    <order-status-badge [status]="order.status"></order-status-badge>
+</ion-item>

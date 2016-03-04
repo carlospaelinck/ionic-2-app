@@ -1,5 +1,6 @@
 import { App, Platform } from 'ionic-angular';
 import { IndexView } from 'pages/index/index.view.ts';
+// import { OrdersService } from 'services/orders.service';
 
 @App({
     template: `
