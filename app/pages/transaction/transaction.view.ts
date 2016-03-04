@@ -10,29 +10,27 @@ import * as customerData from 'data/customers.json';
 })
 
 export class TransactionView {
-  constructor(nav: NavController) {
+    constructor(nav: NavController) {
+        this.shouldHideCancel = false;
 
-      this.shouldHideCancel = false;
+        this.nav = nav;
 
-      this.nav = nav;
+        // group customers by their starting letter
+        this.customers = groupBy(customerData.customers, (customer) => customer.name[0]);
 
-      // group customers by their starting letter
-      this.customers = groupBy(customerData.customers, (customer) => customer.name[0]);
+        // get the keys, sort
+        this.customersKeys = sortBy(Object.keys(this.customers));
+    }
 
-      // get the keys, sort
-      this.customersKeys = sortBy(Object.keys(this.customers));
-  }
+    onInput(e) {
+        console.log(e);
+    }
 
-  onInput(e) {
-      console.log(e);
-  }
+    onCancel(e) {
+        console.log(e);
+    }
 
-  onCancel(e) {
-      console.log(e);
-  }
-
-  close() {
-      this.nav.pop();
-  }
-
+    close() {
+        this.nav.pop();
+    }
 }
