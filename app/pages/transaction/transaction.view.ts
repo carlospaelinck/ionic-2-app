@@ -20,7 +20,7 @@ export class TransactionView {
       this.customers = groupBy(customerData.customers, (customer) => customer.name[0]);
 
       // get the keys, sort
-      this.customersKeys = sortBy(Object.keys(this.customers))
+      this.customersKeys = sortBy(Object.keys(this.customers));
   }
 
   onInput(e) {
