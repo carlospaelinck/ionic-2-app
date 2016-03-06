@@ -1,15 +1,15 @@
 import { Component, Input } from 'angular2/core';
-import './customer-item.scss';
+import { IONIC_DIRECTIVES } from 'ionic-angular';
+
+import * as template from './customer-item.html';
 import Customer from 'models/customer.model.ts';
+
+import './customer-item.scss';
 
 @Component({
     selector: 'customer-item',
-    template: `
-        <div class="customer-item">
-            {{ customer.id }} <br />
-            {{ customer.name }}
-        </div>
-    `
+    directives: [ IONIC_DIRECTIVES ],
+    template
 })
 
 export class CustomerItem {

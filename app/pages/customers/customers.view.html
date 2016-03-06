@@ -2,12 +2,24 @@
     <motion-logo></motion-logo>
     <ion-buttons end>
         <button white>
-          <ion-icon name="search"></ion-icon>
+            <ion-icon name="search"></ion-icon>
         </button>
       </ion-buttons>
 </ion-navbar>
-<ion-content>
-{{customers.length}}
+<ion-content class="customers">
+    <ion-row class="overview">
+        <ion-col>
+            <h4>{{customers.length}} Customers</h4>
+        </ion-col>
+        <ion-col class="buttons-col">
+            <button clear small class="motion-action-button">
+                <ion-icon name="funnel"></ion-icon> Filter
+            </button>
+            <button clear small class="motion-action-button">
+                <ion-icon name="sort"></ion-icon> Sort
+            </button>
+        </ion-col>
+    </ion-row>
     <ion-item-group>
         <customer-item *ngFor="#customer of customers" [customer]="customer">
         </customer-item>

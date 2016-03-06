@@ -6,6 +6,7 @@ import CustomerService from 'services/customer.service.ts';
 import Customer from 'models/customer.model.ts';
 
 import * as template from './customers.view.html';
+import './customers.scss';
 
 @Page({
     template: template,

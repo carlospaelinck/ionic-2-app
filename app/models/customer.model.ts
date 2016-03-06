@@ -1,3 +1,5 @@
+import { formatMoney } from 'accounting';
+
 export default class Customer {
     public id: number;
     public name: string;
@@ -11,5 +13,13 @@ export default class Customer {
         this.favorite = json.favorite || false;
         this.monthToDate = json.mtd || 0;
         this.yearToDate = json.ytd || 0;
+    }
+
+    financialStats(): string {
+        return `
+            ${formatMoney(this.yearToDate, '$', 0, ',')} YTD
+             •
+            ${formatMoney(this.monthToDate, '$', 0, ',')} MTD
+        `;
     }
 }
