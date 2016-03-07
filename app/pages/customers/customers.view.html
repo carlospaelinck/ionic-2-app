@@ -21,7 +21,7 @@
         </ion-col>
     </ion-row>
     <ion-item-group>
-        <customer-item *ngFor="#customer of customers" [customer]="customer">
+        <customer-item *ngFor="#customer of customers" showFinancialStats="true" [customer]="customer">
         </customer-item>
     </ion-item-group>
 </ion-content>

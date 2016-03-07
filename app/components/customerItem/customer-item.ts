@@ -14,4 +14,5 @@ import './customer-item.scss';
 
 export class CustomerItem {
     @Input() customer: Customer;
+    @Input() showFinancialStats: boolean = false;
 }

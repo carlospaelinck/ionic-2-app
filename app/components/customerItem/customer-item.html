@@ -1,10 +1,6 @@
 <ion-item>
     <h2>{{ customer.name }}</h2>
-    <p>
-        {{ customer.yearToDate | currency:'USD':true }} YTD
-        &nbsp;&#8226;&nbsp;
-        {{ customer.monthToDate | currency:'USD':true }} MTD
-    </p>
+    <p *ngIf="showFinancialStats">{{ customer.financialStats() }}</p>
     <button clear secondary item-right>
         <ion-icon name="star" [isActive]="customer.favorite"></ion-icon>
     </button>

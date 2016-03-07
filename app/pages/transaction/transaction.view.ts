@@ -1,12 +1,14 @@
 import { groupBy, sortBy } from 'lodash';
 import { Page, NavController } from 'ionic-angular';
 import { MotionLogo } from 'components/motionLogo/motionLogo.component';
+import { CustomerItem } from 'components/customerItem/customer-item.ts';
+import { LocationSelector } from 'components/locationSelector/locationSelector.component';
 import * as template from './transaction.view.html';
 import * as customerData from 'data/customers.json';
 
 @Page({
      template: template,
-     directives: [MotionLogo]
+     directives: [ MotionLogo, LocationSelector, CustomerItem ]
 })
 
 export class TransactionView {

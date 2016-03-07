@@ -8,19 +8,11 @@
     </ion-buttons>
 </ion-navbar>
 <ion-content>
-<!-- <ion-searchbar dark
-  [(ngModel)]="customerFilter"
-  (input)="onInput($event)"
-  [hideCancelButton]="shouldHideCancel"
-  (cancel)="onCancel($event)">
-</ion-searchbar> -->
     <ion-list>
+        <location-selector></location-selector>
         <ion-item-group *ngFor='#key of customersKeys'>
             <ion-item-divider light>{{ key }}</ion-item-divider>
-            <ion-item *ngFor="#customer of customers[key]">
-                {{ customer.name }}
-                <ion-icon name="star" secondary item-right></ion-icon>
-            </ion-item>
+            <customer-item *ngFor="#customer of customers[key]" [customer]="customer"></customer-item>
         </ion-item-group>
     </ion-list>
 </ion-content>

@@ -12,6 +12,7 @@
 @import "components/orderStatus/orderStatus.scss";
 @import "components/orderItem/orderItem.scss";
 @import "components/motionLogo/motionLogo.scss";
+@import "components/locationSelector/locationSelector.scss";
 
 // orange.
 .secondary { color: map-get($colors, 'secondary'); }

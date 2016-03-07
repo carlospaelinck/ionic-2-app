@@ -1,0 +1,11 @@
+<ion-item>
+    <ion-label>
+        <ion-icon name="pin"></ion-icon>
+        Set Location
+    </ion-label>
+    <ion-select [(ngModel)]="selectedLocation" [alertOptions]="alertOptions">
+        <ion-option *ngFor="#location of locations" [value]="location">
+            <strong>{{ location.id }} {{ location.name }}</strong>
+        </ion-option>
+    </ion-select>
+</ion-item>

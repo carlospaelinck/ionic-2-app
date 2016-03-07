@@ -1,0 +1,14 @@
+location-selector {
+    .item {
+        background: map-get($colors, 'primary');
+        color: #fff;
+    }
+
+    ion-select {
+        max-width: none;
+    }
+
+    .item-inner {
+        border: 0;
+    }
+}
