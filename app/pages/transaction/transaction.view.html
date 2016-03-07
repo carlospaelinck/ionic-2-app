@@ -11,8 +11,12 @@
     <ion-list>
         <location-selector></location-selector>
         <ion-item-group *ngFor='#key of customersKeys'>
-            <ion-item-divider light>{{ key }}</ion-item-divider>
-            <customer-item *ngFor="#customer of customers[key]" [customer]="customer"></customer-item>
+            <ion-item-divider>{{ key }}</ion-item-divider>
+            <customer-item
+                *ngFor="#customer of customers[key]"
+                (click)="onCustomerSelect(customer)"
+                [customer]="customer">
+            </customer-item>
         </ion-item-group>
     </ion-list>
 </ion-content>

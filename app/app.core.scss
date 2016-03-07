@@ -9,9 +9,13 @@
 
 
 @import "styles/base";
+@import "components/motionLogo/motionLogo.scss";
+
 @import "components/orderStatus/orderStatus.scss";
 @import "components/orderItem/orderItem.scss";
-@import "components/motionLogo/motionLogo.scss";
+@import "components/orderForm/orderForm.scss";
+@import "components/orderFormSteps/orderFormSteps.scss";
+
 @import "components/locationSelector/locationSelector.scss";
 
 // orange.
@@ -52,6 +56,13 @@ tabbar {
     .toolbar-title {
         color: #fff;
     }
+
+    &.motion-header-two-line {
+        .toolbar-title {
+            line-height: 13px;
+            font-size: 14px;
+        }
+    }
 }
 
 // filter, sort, +new
@@ -62,8 +73,13 @@ tabbar {
     min-width: 50px;
 }
 
-.motion-segment-bar {
+.motion-section-header {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
 
+.motion-segment-bar {
     .segment-button {
         border: 0;
         height: 4.6rem;

@@ -1,7 +1,7 @@
-<ion-item>
+<button ion-item>
     <h2>{{ customer.name }}</h2>
     <p *ngIf="showFinancialStats">{{ customer.financialStats() }}</p>
     <button clear secondary item-right>
         <ion-icon name="star" [isActive]="customer.favorite"></ion-icon>
     </button>
-</ion-item>
+</button>

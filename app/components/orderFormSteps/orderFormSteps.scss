@@ -1,0 +1,65 @@
+order-form-steps {
+    flex: 1;
+
+    .order-form-steps {
+        display: flex;
+        background: map-get($colors, 'primary');
+        align-items: center;
+        justify-content: center;
+
+        .step {
+            text-align: center;
+            display: flex;
+            color: #fff;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0px;
+            border-radius: 40px;
+            width: 36px;
+            height: 36px;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                height: 1px;
+                width: 12px;
+                background: #EDBDB9;
+                top: 50%;
+            }
+
+            &:last-child:after {
+                display: none;
+            }
+
+            .step-inner {
+                align-items: center;
+                background: #D0453C;
+                border-radius: 30px;
+                border: 1px solid #EDBDB9;
+                color: #EDBDB9;
+                display: flex;
+                font-size: 11px;
+                height: 26px;
+                justify-content: center;
+                line-height: 26px;
+                text-align: center;
+                width: 26px;
+            }
+
+            &.active {
+                background: rgba(255, 255, 255, 0.25);
+
+                .step-inner {
+                    color: #fff;
+                    border-color: #fff;
+                    border-width: 2px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+}
+

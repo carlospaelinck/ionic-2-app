@@ -1,0 +1,13 @@
+.steps-container {
+    align-items: center;
+    background: map-get($colors, 'primary');
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: 100%;
+
+    button {
+        background: map-get($colors, 'primary');
+        color: #6D241F;
+    }
+}

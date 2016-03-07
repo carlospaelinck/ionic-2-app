@@ -1,8 +1,9 @@
 import { groupBy, sortBy } from 'lodash';
-import { Page, NavController } from 'ionic-angular';
+import { Page, NavController, Modal } from 'ionic-angular';
 import { MotionLogo } from 'components/motionLogo/motionLogo.component';
 import { CustomerItem } from 'components/customerItem/customer-item.ts';
 import { LocationSelector } from 'components/locationSelector/locationSelector.component';
+import { OrderForm } from 'components/orderForm/orderForm.component';
 import * as template from './transaction.view.html';
 import * as customerData from 'data/customers.json';
 
@@ -24,12 +25,9 @@ export class TransactionView {
         this.customersKeys = sortBy(Object.keys(this.customers));
     }
 
-    onInput(e) {
-        console.log(e);
-    }
-
-    onCancel(e) {
-        console.log(e);
+    onCustomerSelect(customer) {
+        let orderFlowModal = Modal.create(OrderForm, { customer });
+        this.nav.present(orderFlowModal);
     }
 
     close() {

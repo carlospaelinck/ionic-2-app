@@ -1,0 +1,26 @@
+<ion-navbar *navbar class="motion-header motion-header-two-line">
+    <ion-buttons start>
+        <button light small>
+            Save
+        </button>
+    </ion-buttons>
+    <ion-title>
+        OCN {{ customer.ocn }} <br>
+        <span class="muted">{{ customer.name }}</span>
+    </ion-title>
+    <ion-buttons end>
+        <button light small (click)="cancel()">
+            <ion-icon name="close"></ion-icon> Close
+        </button>
+    </ion-buttons>
+</ion-navbar>
+<ion-content>
+    <div class="steps-container">
+        <button small (click)="prevStep()">PREV</button>
+        <order-form-steps [activeStep]="activeStep"> </order-form-steps>
+        <button small (click)="nextStep()">NEXT</button>
+    </div>
+    <div padding>
+        <h4 class="motion-section-header">1. Select Products</h4>
+    </div>
+</ion-content>
