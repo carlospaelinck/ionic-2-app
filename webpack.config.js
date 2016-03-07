@@ -34,7 +34,8 @@ module.exports = {
             'reflect-metadata',
             path.normalize('zone.js/dist/zone-microtask'),
             'firebase',
-            'accounting',
+            'intl',
+            'intl/locale-data/jsonp/en.js',
             'ionic-angular'
         ]
     },

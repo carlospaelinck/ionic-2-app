@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "accounting": "^0.4.1",
     "angular2": "^2.0.0-beta.7",
     "es6-promise": "^3.1.2",
     "es6-shim": "0.33.13",
     "firebase": "^2.4.1",
+    "intl": "^1.1.0",
     "ionic-angular": "2.0.0-beta.2",
     "ionicons": "3.0.0-alpha.3",
     "lodash": "^4.6.1",
