@@ -20,6 +20,8 @@
 // Both iOS and MD colors can be further customized if colors
 // are different per mode.
 
+$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+
 $colors: (
   primary:    #D0453C,
   secondary:  #DB8114,
@@ -28,5 +30,6 @@ $colors: (
   dark:       #222,
   favorite:   #69BB7B,
   background: #eee,
-  muted:      #89898F
+  muted:      #89898F,
+  lightGray:  #EBEEF4
 );

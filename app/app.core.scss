@@ -15,10 +15,13 @@
 @import "components/orderItem/orderItem.scss";
 @import "components/orderForm/orderForm.scss";
 @import "components/orderFormSteps/orderFormSteps.scss";
+@import "components/orderProductItem/orderProductItem.scss";
+@import "components/orderTotalFooter/orderTotalFooter.scss";
 
 @import "components/locationSelector/locationSelector.scss";
 
 // orange.
+.primary { color: map-get($colors, 'primary'); }
 .secondary { color: map-get($colors, 'secondary'); }
 .muted { color: map-get($colors, 'muted'); }
 
@@ -63,6 +66,12 @@ tabbar {
             font-size: 14px;
         }
     }
+}
+
+// grab content bg.
+.motion-gray-content {
+    background: map-get($colors, 'lightGray');
+    height: 100vh;
 }
 
 // filter, sort, +new

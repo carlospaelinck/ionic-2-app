@@ -1,0 +1,34 @@
+order-product {
+
+    ion-card-header {
+        position: relative;
+    }
+
+    .delete-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .footer {
+        background: #FAFBFC;
+        border-top: 1px solid #EFEFF0;
+        ion-col {
+            padding: 0;
+        }
+        .text {
+            text-align: center;
+            line-height: 45px;
+        }
+    }
+    ion-input {
+        background: #fff;
+        border: 1px solid #D8D8DA;
+        margin-top: 5px;
+        margin-left: 6px;
+        .text-input {
+            margin: 8px;
+            text-align: center;
+        }
+    }
+}

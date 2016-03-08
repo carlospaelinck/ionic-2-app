@@ -5,7 +5,8 @@
         </button>
     </ion-buttons>
     <ion-title>
-        OCN {{ customer.ocn }} <br>
+        OCN {{ customer.ocn }}
+        <br>
         <span class="muted">{{ customer.name }}</span>
     </ion-title>
     <ion-buttons end>
@@ -14,13 +15,35 @@
         </button>
     </ion-buttons>
 </ion-navbar>
-<ion-content>
+<ion-toolbar style="padding: 0;">
     <div class="steps-container">
         <button small (click)="prevStep()">PREV</button>
         <order-form-steps [activeStep]="activeStep"> </order-form-steps>
         <button small (click)="nextStep()">NEXT</button>
     </div>
-    <div padding>
-        <h4 class="motion-section-header">1. Select Products</h4>
+</ion-toolbar>
+<ion-content [ngSwitch]="activeStep">
+    <div *ngSwitchWhen="1">
+        <div padding>
+            <h4 class="motion-section-header">1. Select Products</h4>
+        </div>
+        <ion-list>
+            <ion-item *ngFor="#product of products" [product]="product">
+                <ion-label>
+                    <h2>{{ product.name }}</h2>
+                    <p>MINO {{ product.mino }}</p>
+                    <p>Item {{ product.itemNumber }}</p>
+                </ion-label>
+                <ion-checkbox (change)="onProductSelect(product)" [(ngModel)]="product.selected"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div *ngSwitchWhen="2" class="motion-gray-content">
+        <div padding>
+            <h4 class="motion-section-header">2. Inventory and Quantities</h4>
+        </div>
+        <order-product *ngFor="#orderProduct of order.orderProducts" [orderProduct]="orderProduct">
+        </order-product>
     </div>
 </ion-content>
+<order-total-footer></order-total-footer>

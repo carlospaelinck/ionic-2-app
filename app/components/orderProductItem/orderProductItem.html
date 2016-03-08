@@ -1,0 +1,37 @@
+<ion-card>
+    <ion-card-header>
+        <span class="primary">{{ orderProduct.name }}</span>
+        <button clear dark (click)="removeProduct()" class="delete-btn">
+            <ion-icon name="trash"></ion-icon>
+        </button>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row>
+            <ion-col width-25><span class="muted">MINO</span></ion-col>
+            <ion-col>{{ orderProduct.mino }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col width-25><span class="muted">Item</span></ion-col>
+            <ion-col>{{ orderProduct.itemNumber }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col width-25><span class="muted">CSN</span></ion-col>
+            <ion-col>{{ orderProduct.csn }}</ion-col>
+        </ion-row>
+    </ion-card-content>
+    <div class="footer">
+        <ion-row>
+            <ion-col>
+                <ion-input #productQuantity placeholder="Quantity" (keyup)="updateProductQuantity(productQuantity.value)" type="number"></ion-input>
+            </ion-col>
+            <ion-col>
+                <div class="text">{{ orderProduct.price | currency: 'USD' :true }}</div>
+            </ion-col>
+            <ion-col>
+                <div class="text secondary">
+                    <strong>{{ orderProduct.quantity * orderProduct.price | currency: 'USD': true }}</strong>
+                </div>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-card>

@@ -2,6 +2,8 @@ import { App, Platform } from 'ionic-angular';
 import { IndexView } from 'pages/index/index.view.ts';
 // import { OrdersService } from 'services/orders.service';
 import CustomerService from 'services/customer.service.ts';
+import ProductService from 'services/product.service.ts';
+import OrderService from 'services/order.service.ts';
 
 @App({
     template: `
@@ -11,7 +13,9 @@ import CustomerService from 'services/customer.service.ts';
         tabbarPlacement: 'bottom'
     },
     providers: [
-        CustomerService
+        CustomerService,
+        ProductService,
+        OrderService
     ]
 })
 
